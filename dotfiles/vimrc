@@ -1,0 +1,68 @@
+"call plug#begin('~/.vim/plugged')
+"Plug 'LaTeX-Box-Team/LaTeX-Box'
+"call plug#end()
+"
+"
+"
+" Vundle
+"set nocompatible
+"filetype off
+"
+"set rtp+=~/.vim/bundle/Vundle.vim
+"call vundle#begin()
+"
+"Plugin 'gmarik/Vundle.vim'
+"Plugin 'JuliaLang/julia-vim'
+"Plugin 'LaTeX-Box-Team/LaTeX-Box'
+"Plugin 'lervag/vimtex'
+"
+"call vundle#end()
+"filetype plugin indent on
+" End Vundle
+
+
+set term=xterm-256color
+
+set number
+set shiftwidth=2
+set expandtab
+set tabstop=2
+set softtabstop=2
+set showmatch
+set scrolloff=3
+set cursorline
+set autowrite
+set nocursorline
+set nocursorcolumn
+syntax sync minlines=256
+
+:let mapleader = "`"
+
+noremap <buffer> <silent> j gj
+noremap <buffer> <silent> k gk
+
+" For Peter L's insert/delete commands.
+nnoremap <leader>d dt{d%
+nnoremap <leader>i dt{%x``x
+
+" Easy moves between splits
+map <C-h> <C-W>h
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-l> <C-W>l
+
+
+" Soft wrap at word breaks
+:set wrap
+:set linebreak
+:set nolist  " list disables linebreak
+
+:set textwidth=0
+:set wrapmargin=0
+
+
+":nmap <Leader>l :w<CR> :Latexmk<CR> 
+":nmap <Leader>v :LatexView<CR>
+
+syntax enable
+:set background=dark

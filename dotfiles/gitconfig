@@ -1,0 +1,7 @@
+[credential]
+	helper = store
+[user]
+	name = Laurence Aitchison
+	email = laurence.aitchison@gmail.com
+[http]
+	postBuffer = 524288000
