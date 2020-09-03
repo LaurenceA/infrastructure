@@ -14,6 +14,7 @@ To automatically submit that job, we'd use `lsub`,
 ```
 lsub -c 1 -g 1 -m 22 --cmd python my_training_script.py --my_command_line_arg
 ```
+Note that lsub blocks (waits until the job is completed).  This is useful in some ways (because it makes it easy to kill jobs when you realise something isn't right), but if you don't want it, you can delete `-W block=True` in `lsub` to get back to the usual non-blocking behaviour.
 
 Unfortunately, these scripts tend to produce a huge number of files that look like `STDIN.o12389412`.  To rectify that, we use the `--autoname` argument,
 ```
