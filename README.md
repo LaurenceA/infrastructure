@@ -45,7 +45,7 @@ I have also included `local_bin/bp_jupyter` which will forward a port from the l
 
 Disk space in Blue Pebble
 --------
-Disk space is tightly constrained (only 20 GB in home).  Use your 1T work directory (in my case `/work/ei19760/`), which has fewer guarantees on backup etc.  To check your disk space, use
+Disk space is tightly constrained (only 20 GB in home).  Use your 1T work directory (in my case `/work/ei19760/`) which has fewer guarantees on backup etc.  These directories can be found in `$HOME` and `$WORK`.  To check your disk space, use
 ```
 quota -s
 ```
