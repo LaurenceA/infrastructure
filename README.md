@@ -42,3 +42,10 @@ Logging in to Blue Pebble
 I have a hatred of VPNs.  You can login to Blue Pebble without going through the VPN using `local_bin/bp_ssh`. (You'll need to update it with your username though!)
 
 I have also included `local_bin/bp_jupyter` which will forward a port from the login-node onto your local computer, so that you can run Jupyter on the login node.
+
+Disk space in Blue Pebble
+--------
+Disk space is tightly constrained (only 20 GB in home).  Use your 1T work directory (in my case `/work/ei19760/`), which has fewer guarantees on backup etc.  To check your disk space, use
+```
+quota -s
+```
