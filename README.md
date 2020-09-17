@@ -49,3 +49,9 @@ Disk space is tightly constrained (only 20 GB in home).  Use your 1T work direct
 ```
 quota -s
 ```
+
+Time limits for different queues
+----
+* short: 3 hours
+* long: 23 hours
+* vlong: 72 hours
