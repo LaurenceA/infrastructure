@@ -22,7 +22,7 @@ lsub -c 1 -g 1 -m 22 --autoname --cmd python my_training_script.py output_filena
 ```
 `--autoname` assumes that the job's output filename comes in third place (after `python` and `my_training_script.py`), 
 and produces logs with the name: `output_filename.o`, which tends to be much more helpful for working out which log-file
-belongs to which job.
+belongs to which job.  This may require you to use `print('...', flush=True)`, to make sure that the printed output isn't buffered.
 
 Interactive jobs in Blue Pebble
 ---------------
