@@ -1,0 +1,3 @@
+#!/bin/bash
+
+scp $1 ei19760@bp1-login01b.acrc.bris.ac.uk:/home/ei19760/$2
