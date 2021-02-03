@@ -1,0 +1,9 @@
+#! /bin/bash
+
+#First command line argument: input pdf filename
+#Second command line argument: last page of manuscript
+#Produces manuscript.pdf and appendix.pdf
+
+let a=$2+1
+pdftk $1 cat 1-$2 output manuscript.pdf
+pdftk $1 cat $a-end output appendix.pdf
