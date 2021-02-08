@@ -55,3 +55,9 @@ Time limits for different queues
 * short: 3 hours
 * long: 23 hours
 * vlong: 72 hours
+
+Text editing on Blue Pebble
+----
+I use `vim`, which is a terminal-based text editor, which works exactly the same way remotely as locally.  There's a steep learning curve, but its eventually very worthwhile.
+
+If you don't want that, there are other approaches such as `sshfs` which loads a remote filesystem, but they are typically much more effort to set up and much more flaky...
