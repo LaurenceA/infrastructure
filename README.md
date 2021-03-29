@@ -67,3 +67,7 @@ Deleting all your jobs
 ```
 qselect -u <username> | xargs qdel
 ```
+
+Connecting PyCharm and Blue Pebble
+--------
+[instructions/Pycharm_BluePebble.pdf](Instructions) from Michele
