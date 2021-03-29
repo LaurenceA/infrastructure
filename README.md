@@ -70,4 +70,4 @@ qselect -u <username> | xargs qdel
 
 Connecting PyCharm and Blue Pebble
 --------
-[[https://github.com/LaurenceA/infrastructure/blob/master/instructions/Pycharm_BluePebble.pdf]](Instructions) from Michele
+[Instructions](https://github.com/LaurenceA/infrastructure/blob/master/instructions/Pycharm_BluePebble.pdf) from Michele
