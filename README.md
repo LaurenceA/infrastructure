@@ -68,6 +68,21 @@ Deleting all your jobs
 qselect -u <username> | xargs qdel
 ```
 
-Connecting PyCharm and Blue Pebble
+Connecting PyCharm to Blue Pebble
 --------
 [Instructions](https://github.com/LaurenceA/infrastructure/blob/master/instructions/Pycharm_BluePebble.pdf) from Michele
+
+Connecting VSCode to Blue Pebble
+---------
+For those more famililar with GUI based text editors, `VS Code` may be set up so as to enable a secure connection (SSH) with the remote server. 
+
+**SSH Client**
+
+* Install the [remote extension pack](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack).  The necessary extension in this use case is Remote-SSH. 
+* Connect to the VPN.
+* Select `Remote-SSH: Connect to Host...` from the VSCode Command Palette, then enter user@bp1-login.acrc.bris.ac.uk.
+* Local extensions will not be available on the remote initialisation. Remote and local settings can be synced. Solutions to this and further information on all of the above with FAQ and troubleshooting are detailed in the VS Code [documentation](https://code.visualstudio.com/docs/remote/ssh).
+
+Transfering data
+--------
+[Transferring Data](https://www.acrc.bris.ac.uk/protected/hpc-docs/transferring_data/index.html).
