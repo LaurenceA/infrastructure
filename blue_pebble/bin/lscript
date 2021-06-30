@@ -8,9 +8,11 @@ import subprocess
 parser = argparse.ArgumentParser()
 parser.add_argument('--cpus',    '-c', type=int, nargs='?', default=1)
 parser.add_argument('--gpus',    '-g', type=int, nargs='?')
-parser.add_argument('--time',    '-t', type=int, nargs='?', default=22, help="time in hours")
+parser.add_argument('--hours',   '-t', type=int, nargs='?', default=23, help="time in hours")
+parser.add_argument('--mins',          type=int, nargs='?', default=0, help="time in mins")
 parser.add_argument('--memory',  '-m', type=int, nargs='?',             help="memory in gp")
 parser.add_argument('--gputype',       type=str, nargs='?',             help="{GTX1080, RTX2080, RTX2080Ti}")
+parser.add_argument('--venv',          type=str, nargs='?')
 parser.add_argument('--cmd',           type=str, nargs='*',             help="job command --- must be last argument")
 parser.add_argument('--autoname', action='store_true',                   help="extract output filename based on job --- always uses third argument after --cmd, as in --cmd python file.py output_filename")
 #parser.add_argument('ssd', '-s', action=store_true)
@@ -22,7 +24,7 @@ args = parser.parse_args(args)
 cmd = ' '.join(sys.argv[(1+cmd_idx):])
 
 print(f"#!/bin/sh",)
-print(f"#PBS -l walltime={args.time}:00:00")
+print(f"#PBS -l walltime={args.hours}:{args.mins}:00")
 select = f"#PBS -l select=1:ncpus={args.cpus}"
 
 if args.memory is not None:
@@ -39,12 +41,14 @@ print(f"#PBS -j oe") #Join stdout and stderr to stdout
 if args.autoname:
     path = sys.argv[cmd_idx+3]
     print(f"#PBS -N {os.path.basename(path)}")
-    print(f"#PBS -o {path}.o")
+    print(f"#PBS -o /dev/null") #{path}.o")
 
 print('')
 print('cd $PBS_O_WORKDIR')
 
 print('module add lib/hdf5/1.10.6-gcc')
+if args.venv is not None:
+    print(f'source {args.venv}/bin/activate')
 print('')
 
 if args.autoname:
