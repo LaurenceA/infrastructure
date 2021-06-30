@@ -8,7 +8,8 @@ Making a job script for each run is extremely tedious.  The files in `blue_pebbl
 ```
 lscript -c 1 -g 1 -m 22 --cmd python my_training_script.py --my_command_line_arg
 ```
-where everything that comes after `--cmd` is the run command.
+where everything that comes after `--cmd` is the run command.  If you need to edit the submission script (e.g. to add extra modules), this is the file to change!
+
 To automatically submit that job, we'd use `lsub_nonblock`,
 ```
 lsub_nonblock -c 1 -g 1 -m 22 --cmd python my_training_script.py --my_command_line_arg
@@ -22,6 +23,8 @@ lsub_nonblock -c 1 -g 1 -m 22 --autoname --cmd python my_training_script.py outp
 `--autoname` assumes that the job's output filename comes in third place (after `python` and `my_training_script.py`), 
 and produces logs with the name: `output_filename.o`, which tends to be much more helpful for working out which log-file
 belongs to which job.  This may require you to use `print('...', flush=True)`, to make sure that the printed output isn't buffered.
+
+There is a `--venv` command line argument for specifying the Python virtual environment to activate on the remote node (which tends to be quite difficult if it isn't hard-coded).
 
 ## Interactive jobs in Blue Pebble
 To get an interactive job with one GPU, use:
