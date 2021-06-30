@@ -67,6 +67,8 @@ qselect -u <username> | xargs qdel
 ## Transfering data
 [Transferring Data](https://www.acrc.bris.ac.uk/protected/hpc-docs/transferring_data/index.html).
 
+I also have scripts `local_bin/bp_put` and `local_bin/bp_get` that put files onto BluePebble, and get files from BluePebble.
+
 ## Text editing on Blue Pebble
 I use `vim`, which is a terminal-based text editor, which works exactly the same way remotely as locally.  There's a steep learning curve, but its eventually very worthwhile.
 
