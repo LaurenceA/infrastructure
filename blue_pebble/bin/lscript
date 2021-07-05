@@ -12,7 +12,7 @@ parser.add_argument('--hours',   '-t', type=int, nargs='?', default=23, help="ti
 parser.add_argument('--mins',          type=int, nargs='?', default=0, help="time in mins")
 parser.add_argument('--memory',  '-m', type=int, nargs='?',             help="memory in gp")
 parser.add_argument('--queue',         type=str, nargs='?',             help="queue")
-parser.add_argument('--gputype',       type=str, nargs='?',             help="{GTX1080, RTX2080, RTX2080Ti, RTX3090}")
+parser.add_argument('--gputype',       type=str, nargs='?',             choices=["GTX1080", "RTX2080", "RTX2080Ti", "RTX3090"], help="{GTX1080, RTX2080, RTX2080Ti, RTX3090}")
 parser.add_argument('--venv',          type=str, nargs='?')
 parser.add_argument('--cmd',           type=str, nargs='*',             help="job command --- must be last argument")
 parser.add_argument('--autoname', action='store_true',                   help="extract output filename based on job --- always uses third argument after --cmd, as in --cmd python file.py output_filename")
