@@ -50,11 +50,11 @@ quota -s
 
 ## Time limits for different queues
 The time limits for various queues are:
-* short: 3 hours
-* long: 23 hours
-* vlong: 72 hours
+* short: 3 hours (cpu)
+* long: 23 hours (cpu)
+* vlong: 72 hours (cpu)
 * gpu: 72 hours
-
+* gpushort: 3 hours
 
 ## Deleting all your jobs
 Use `lsub` above, then you can just Ctrl-C your unwanted jobs.
