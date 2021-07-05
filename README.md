@@ -53,7 +53,7 @@ The time limits for various queues are:
 * short: 3 hours
 * long: 23 hours
 * vlong: 72 hours
-* gpu: 3 hours
+* gpu: 72 hours
 
 
 ## Deleting all your jobs
