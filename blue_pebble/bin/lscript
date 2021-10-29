@@ -1,4 +1,4 @@
-#!/home/ei19760/programs/anaconda3/bin/python
+#!/work/ei19760/programs/anaconda3/bin/python
 
 import os
 import sys
