@@ -83,3 +83,8 @@ If you don't want that, there are other approaches such as `sshfs` which loads a
 * Select `Remote-SSH: Connect to Host...` from the VSCode Command Palette, then enter user@bp1-login.acrc.bris.ac.uk.
 * Local extensions will not be available on the remote initialisation. Remote and local settings can be synced. Solutions to this and further information on all of the above with FAQ and troubleshooting are detailed in the VS Code [documentation](https://code.visualstudio.com/docs/remote/ssh).
 
+## Github Personal Access Tokens
+The GitHub CLI doesn't work with passwords any more.  There's a bunch of options to get GitHub working again.  I think the easiest is the following:
+* Generate a [personal access token](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token).  You just need to give "repo" permissions.
+* Edit `.git/config` in the root of your repository.
+* Change the `url` line in `[remote "origin"]` from e.g. `url = https://github.com/username/repo_name.git` to `url = https://username:personal_access_token@github.com/username/repo_name.git`
