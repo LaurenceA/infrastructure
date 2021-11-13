@@ -4,5 +4,5 @@
 
 TEMP_FILE=$(mktemp)
 lscript $@ --cmd > ${TEMP_FILE}
-qsub -I ${TEMP_FILE}
+sbatch -I ${TEMP_FILE}
 rm ${TEMP_FILE}
