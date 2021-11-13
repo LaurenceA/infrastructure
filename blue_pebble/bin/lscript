@@ -24,30 +24,29 @@ args = sys.argv[1:cmd_idx]
 args = parser.parse_args(args)
 cmd = ' '.join(sys.argv[(1+cmd_idx):])
 
+days = args.time//24
+hours = args.time % 24
 print(f"#!/bin/sh",)
-print(f"#PBS -l walltime={args.hours}:{args.mins}:00")
-select = f"#PBS -l select=1:ncpus={args.cpus}"
+print(f"#SBATCH --time={days}-{hours}:00:00")
+select = f"#SBATCH --ntasks-per-node={args.cpus}"
 
 if args.memory is not None:
-    select = select + f":mem={args.memory}gb"
-if args.gpus is not None:
-    select = select + f":ngpus={args.gpus}"
-if args.gputype is not None:
-    select = select + f":gputype={args.gputype}"
+    select = select + f" --mem={args.memory}G"
+# if args.gpus is not None:
+#     select = select + f":ngpus={args.gpus}"
 
 print(select)
 
-if args.queue is not None:
-    print(f"#PBS -q {args.queue}")
+# if args.queue is not None:
+#     print(f"#PBS -q {args.queue}")
 
-print(f"#PBS -j oe") #Join stdout and stderr to stdout
 if args.autoname:
     path = sys.argv[cmd_idx+3]
-    print(f"#PBS -N {os.path.basename(path)}")
-    print(f"#PBS -o /dev/null") #{path}.o")
+    print(f"#SBATCH --job-name={os.path.basename(path)}")
+    print(f"#SBATCH --output={path}.o")
 
 print('')
-print('cd $PBS_O_WORKDIR')
+print('cd $SLURM_SUBMIT_DIR')
 
 print('module add lib/hdf5/1.10.6-gcc')
 if args.venv is not None:

@@ -5,5 +5,5 @@
 #qsub -W block=True ${TEMP_FILE}
 #rm ${TEMP_FILE}
 
-lscript $@ | qsub -W block=True
+lscript $@ | sbatch -W block=True
 #lscript $@ | qsub -koed
