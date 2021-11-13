@@ -1,0 +1,14 @@
+# .bash_profile
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+	. ~/.bashrc
+fi
+
+# User specific environment and startup programs
+
+export PATH=$PATH:$HOME/.local/bin:$HOME/bin
+export PATH="/user/home/ei19760/programs/anaconda3/bin:$PATH"
+export TERMINFO=/usr/share/terminfo
+alias vim=vi
+export PS1="\w $ "
