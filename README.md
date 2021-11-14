@@ -10,15 +10,15 @@ lscript -c 1 -g 1 -m 22 --cmd python my_training_script.py --my_command_line_arg
 ```
 where everything that comes after `--cmd` is the run command.  If you need to edit the submission script (e.g. to add extra modules), this is the file to change!
 
-To automatically submit that job, we'd use `lsub_nonblock`,
+To automatically submit that job, we'd use `lbatch`,
 ```
-lsub_nonblock -c 1 -g 1 -m 22 --cmd python my_training_script.py --my_command_line_arg
+lbatch -c 1 -g 1 -m 22 --cmd python my_training_script.py --my_command_line_arg
 ```
 Note that I have also included `lsub`, which blocks (waits until the job is completed).  This is useful in some ways (because it makes it easy to kill jobs when you realise something isn't right).  But you need to start the jobs inside `tmux` or `screen`, otherwise the jobs will be terminated when you loose your connection.
 
 Unfortunately, these scripts tend to produce a huge number of files that look like `STDIN.o12389412`.  To rectify that, we use the `--autoname` argument,
 ```
-lsub_nonblock -c 1 -g 1 -m 22 --autoname --cmd python my_training_script.py output_filename --my_command_line_arg
+lbatch -c 1 -g 1 -m 22 --autoname --cmd python my_training_script.py output_filename --my_command_line_arg
 ```
 `--autoname` assumes that the job's output filename comes in third place (after `python` and `my_training_script.py`), 
 and produces logs with the name: `output_filename.o`, which tends to be much more helpful for working out which log-file
