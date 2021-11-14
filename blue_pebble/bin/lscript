@@ -42,7 +42,7 @@ print(select)
 
 if args.autoname:
     path = sys.argv[cmd_idx+3]
-    print(f"#SBATCH --job-name={oss.path.basename(path)}")
+    print(f"#SBATCH --job-name={os.path.basename(path)}")
     print(f"#SBATCH --output={path}.o")
 
 print('')
