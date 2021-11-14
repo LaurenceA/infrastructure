@@ -8,6 +8,6 @@
 # rm ${TEMP_FILE}
 
 
-/user/home/ad20999/infrastructure/blue_pebble/bin/lscript $@ --cmd | srun --pty bash -i
+/user/home/ad20999/infrastructure/blue_pebble/bin/lscript_interactive $@ --cmd | srun --pty bash -i
 
 
