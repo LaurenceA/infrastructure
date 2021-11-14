@@ -1,0 +1,3 @@
+#!/bin/sh
+
+lscript $@ | sbatch $(lcmd $@)
