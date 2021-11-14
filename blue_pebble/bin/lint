@@ -2,7 +2,12 @@
 # run lint for a standard interactive node.
 # run lint -g 1 for a single gpu.
 
-TEMP_FILE=$(mktemp)
-lscript $@ --cmd > ${TEMP_FILE}
-qsub -I ${TEMP_FILE}
-rm ${TEMP_FILE}
+# TEMP_FILE=$(mktemp)
+# /user/home/ad20999/infrastructure/blue_pebble/bin/lscript $@ --cmd > ${TEMP_FILE}
+# srun --pty bash -i ${TEMP_FILE}
+# rm ${TEMP_FILE}
+
+
+/user/home/ad20999/infrastructure/blue_pebble/bin/lscript_interactive $@ --cmd | srun --pty bash -i
+
+

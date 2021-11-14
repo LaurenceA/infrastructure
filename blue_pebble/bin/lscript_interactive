@@ -27,7 +27,7 @@ cmd = ' '.join(sys.argv[(1+cmd_idx):])
 days = args.hours//24
 hours = args.hours % 24
 print(f"#!/bin/sh",)
-print(f"#SBATCH --time={days}-{hours}:00:00")
+print(f"#SRUN --time={days}-{hours}:00:00")
 # select = f"#SBATCH --ntasks-per-node={args.cpus}"
 select = f"#SBATCH --cpus-per-task={args.cpus}"
 
@@ -43,8 +43,8 @@ print(select)
 
 if args.autoname:
     path = sys.argv[cmd_idx+3]
-    print(f"#SBATCH --job-name={os.path.basename(path)}")
-    print(f"#SBATCH --output={path}.o")
+    print(f"#SRUN --job-name={oss.path.basename(path)}")
+    print(f"#SRUN --output={path}.o")
 
 print('')
 print('cd $SLURM_SUBMIT_DIR')
