@@ -1,9 +1,3 @@
 #!/bin/sh
 
-#TEMP_FILE=$(mktemp)
-#lscript $@ > ${TEMP_FILE}
-#qsub -W block=True ${TEMP_FILE}
-#rm ${TEMP_FILE}
-
-/user/home/ad20999/infrastructure/blue_pebble/bin/lscript $@ | sbatch 
-#lscript $@ | qsub -koed
+lscript $@ | sbatch -W $(lcmd $@)

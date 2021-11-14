@@ -21,7 +21,7 @@
 " End Vundle
 
 
-set term=xterm-256color
+"set term=xterm-256color
 
 set number
 set shiftwidth=2

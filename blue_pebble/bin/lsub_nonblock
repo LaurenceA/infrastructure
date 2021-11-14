@@ -1,2 +1,0 @@
-#!/bin/sh
-/user/home/ad20999/infrastructure/blue_pebble/bin/lscript $@ | srun
