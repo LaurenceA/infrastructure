@@ -28,7 +28,8 @@ days = args.hours//24
 hours = args.hours % 24
 print(f"#!/bin/sh",)
 print(f"#SBATCH --time={days}-{hours}:00:00")
-select = f"#SBATCH --ntasks-per-node={args.cpus}"
+# select = f"#SBATCH --ntasks-per-node={args.cpus}"
+select = f"#SBATCH --cpus-per-task={args.cpus}"
 
 if args.memory is not None:
     select = select + f" --mem={args.memory}G"
