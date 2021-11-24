@@ -16,9 +16,11 @@ parser.add_argument('--cmd',           type=str, nargs='?',             help="jo
 parser.add_argument('--autoname', action='store_true',                   help="extract output filename based on job --- always uses third argument after --cmd, as in --cmd python file.py output_filename")
 
 # remove args after --cmd, if present
-arglist = sys.argv[1:]
 if "--cmd" in arglist:
     cmd_idx = arglist.index('--cmd')
+    arglist = sys.argv[1:cmd_idx]
+else:
+    arglist = sys.argv[1:]
 args = parser.parse_args(arglist)
 
 cmd = ""
