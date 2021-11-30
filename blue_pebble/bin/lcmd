@@ -21,7 +21,7 @@ if "--cmd" in sys.argv:
     arglist = sys.argv[1:cmd_idx]
 else:
     arglist = sys.argv[1:]
-args = parser.parse_args(arglist)
+args,_ = parser.parse_known_args(arglist)
 
 cmd = ""
 
