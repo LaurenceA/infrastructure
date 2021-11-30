@@ -17,7 +17,7 @@ parser.add_argument('--autoname', action='store_true',                   help="e
 
 # remove args after --cmd, if present
 if "--cmd" in sys.argv:
-    cmd_idx = arglist.index('--cmd')
+    cmd_idx = sys.argv.index('--cmd')
     arglist = sys.argv[1:cmd_idx]
 else:
     arglist = sys.argv[1:]
