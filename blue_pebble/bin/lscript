@@ -14,6 +14,7 @@ parser.add_argument('--memory',  '-m', type=int, nargs='?',             help="me
 parser.add_argument('--queue',   '-q', type=str, nargs='?',             help="queue")
 parser.add_argument('--gputype',       type=str, nargs='?')#,             choices=["GTX1080", "RTX2080", "RTX2080Ti", "RTX3090"], help="{GTX1080, RTX2080, RTX2080Ti, RTX3090}")
 parser.add_argument('--venv',          type=str, nargs='?')
+parser.add_argument('--port',          type=str, nargs='*',             help="ports to open ssh tunnels back to login nodes")
 parser.add_argument('--cmd',           type=str, nargs='*',             help="job command --- must be last argument")
 parser.add_argument('--autoname', action='store_true',                   help="extract output filename based on job --- always uses third argument after --cmd, as in --cmd python file.py output_filename")
 #parser.add_argument('ssd', '-s', action=store_true)
@@ -33,6 +34,11 @@ if args.autoname:
 
 print('')
 print('cd $SLURM_SUBMIT_DIR')
+
+if args.port:
+    for i in range(1,6):
+        for port in args.port:
+            print(f"/usr/bin/ssh -N -f -R {port}:localhost:{port} bp1-login0{i}.data.bp.acrc.priv")
 
 print('module add lib/hdf5/1.10.6-gcc')
 if args.venv is not None:
