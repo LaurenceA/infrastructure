@@ -92,3 +92,5 @@ local $ local_bin/bp_jupyter --hours 8
 The options you pass will be given to lscript and lcmd so you can use them to set your job resource needs.
 
 The downside is that it will run the Jupyter server in your home directory and you will still need to cancel the job when your are finished.
+
+The script also assume you have create an alias in your local SSH config which points bp at Blue Pebble login node with the correct username.
