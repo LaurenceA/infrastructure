@@ -1,3 +1,10 @@
-ssh -N -f -L localhost:8896:localhost:8896 -J ei19760@seis.bris.ac.uk ei19760@bp1-login01b.acrc.bris.ac.uk
-#run this remotely to start Jupyter listening on localhost:8896
-#jupyter lab --no-browser -port=8896
+#!/bin/env bash
+
+set -euo pipefail
+
+port=$(shuf -i 6000-9999 -n 1)
+echo "Using port $port"
+echo "Once the job has started on the cluster, navigate to http://localhost:${port}"
+ssh -t -L ${port}:localhost:${port} bp "lsub $@ --port ${port} --cmd 'jupyter notebook --no-browser --port ${port}'"
+
+echo "Connection closed. Please make sure the job is cancelled."
