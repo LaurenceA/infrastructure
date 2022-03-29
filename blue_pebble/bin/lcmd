@@ -3,6 +3,13 @@
 import sys
 import argparse
 
+gpu_mems = [11, 24, 40]
+gpu_nodes = {
+    11 : ["bp1-gpu004", "bp1-gpu006", "bp1-gpu016", "bp1-gpu017"],
+    24 : ["bp1-gpu029"],
+    40 : ["bp1-gpu031", "bp1-gpu032"]
+}
+
 parser = argparse.ArgumentParser()
 parser.add_argument('--cpus',    '-c', type=int, nargs='?', default=1)
 parser.add_argument('--gpus',    '-g', type=int, nargs='?')
@@ -10,7 +17,7 @@ parser.add_argument('--hours',   '-t', type=int, nargs='?', default=1,  help="ti
 parser.add_argument('--mins',          type=int, nargs='?', default=0,  help="time in mins")
 parser.add_argument('--memory',  '-m', type=int, nargs='?', default=22, help="memory in gp")
 parser.add_argument('--queue',   '-q', type=str, nargs='?',             help="queue")
-parser.add_argument('--gputype',       type=str, nargs='?'             )#choices=["GTX1080", "RTX2080", "RTX2080Ti", "RTX3090"], help="{GTX1080, RTX2080, RTX2080Ti, RTX3090}")
+parser.add_argument('--gpumem',        type=int, nargs='*', choices=gpu_mems)
 
 # remove args after --cmd, if present
 if "--cmd" in sys.argv:
@@ -34,9 +41,17 @@ if args.queue is not None:
     cmd = cmd + f" --partition {args.queue}"
 
 if args.gpus is not None:
-    if args.gputype is not None:
-        cmd = cmd + f" --gpus={args.gputype}:{args.gpus}"
-    else:
-        cmd = cmd + f" --gpus={args.gpus}"
+    #if args.gputype is not None:
+    #    cmd = cmd + f" --gpus={args.gputype}:{args.gpus}"
+    #else:
+    cmd = cmd + f" --gpus={args.gpus}"
+
+if args.gpumem is not None:
+    exclude_mem = set(gpu_mems) - set(args.gpumem)    
+    exclude_nodes_list_list = [gpu_nodes[mem] for mem in exclude_mem]
+    exclude_nodes = [y for x in exclude_nodes_list_list for y in x]
+    exclude_nodes_str = ",".join(exclude_nodes)
+    
+    cmd = cmd + f" --exclude={exclude_nodes_str}"
 
 print(cmd)

@@ -13,6 +13,7 @@ parser.add_argument('--mins',          type=int, nargs='?', default=0, help="tim
 parser.add_argument('--memory',  '-m', type=int, nargs='?',             help="memory in gp")
 parser.add_argument('--queue',   '-q', type=str, nargs='?',             help="queue")
 parser.add_argument('--gputype',       type=str, nargs='?')#,             choices=["GTX1080", "RTX2080", "RTX2080Ti", "RTX3090"], help="{GTX1080, RTX2080, RTX2080Ti, RTX3090}")
+parser.add_argument('--gpumem',        type=str, nargs='*')#,             choices=["GTX1080", "RTX2080", "RTX2080Ti", "RTX3090"], help="{GTX1080, RTX2080, RTX2080Ti, RTX3090}")
 parser.add_argument('--venv',          type=str, nargs='?')
 parser.add_argument('--port',          type=str, nargs='*',             help="ports to open ssh tunnels back to login nodes")
 parser.add_argument('--cmd',           type=str, nargs='*',             help="job command --- must be last argument")

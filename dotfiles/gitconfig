@@ -5,3 +5,5 @@
 	email = laurence.aitchison@gmail.com
 [http]
 	postBuffer = 524288000
+[push]
+	default = simple
