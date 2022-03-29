@@ -1,1 +1,1 @@
-ssh -J ei19760@seis.bris.ac.uk ei19760@bp1-login01b.acrc.bris.ac.uk
+ssh -J ei19760@seis.bris.ac.uk ei19760@bp1-login.acrc.bris.ac.uk
