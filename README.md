@@ -26,6 +26,8 @@ belongs to which job.  This may require you to use `print('...', flush=True)`, t
 
 There is a `--venv` command line argument for specifying the Python virtual environment to activate on the remote node (which tends to be quite difficult if it isn't hard-coded).
 
+To select gpus, use the `--gpumem` option.  It takes a list of `11` (for 1080 and 2080 cards), `24` (for 3090's) and `40` (for 40gb A100s).  You can give a list (e.g. `--gpumem 11 24`).
+
 ## Interactive jobs in Blue Pebble
 To get an interactive job with one GPU, use:
 ```
@@ -47,7 +49,7 @@ I have a hatred of VPNs.  You can login to Blue Pebble without going through the
 ## Disk space in Blue Pebble
 Disk space is tightly constrained (only 20 GB in home).  Use your 1T work directory (in my case `/work/ei19760/`) which has fewer guarantees on backup etc.  These directories can be found in `$HOME` and `$WORK`.  To check your disk space, use
 ```
-quota -s
+user-quota
 ```
 
 ## Time limits for different queues
@@ -58,7 +60,7 @@ The time limits for various queues are:
 * gpu: 72 hours
 * gpushort: 3 hours
 
-## Deleting all your jobs
+## Deleting all your jobs (out of date!)
 Use `lsub` above, then you can just Ctrl-C your unwanted jobs.
 
 Otherwise:
