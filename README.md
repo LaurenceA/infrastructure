@@ -65,7 +65,7 @@ Use `lsub` above, then you can just Ctrl-C your unwanted jobs.
 
 Otherwise:
 ```
-qselect -u <username> | xargs qdel
+scancel -u ei19760
 ```
 
 ## Transfering data
