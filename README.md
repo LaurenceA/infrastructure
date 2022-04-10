@@ -60,7 +60,7 @@ The time limits for various queues are:
 * gpu: 72 hours
 * gpushort: 3 hours
 
-## Deleting all your jobs (out of date!)
+## Deleting all your jobs
 Use `lsub` above, then you can just Ctrl-C your unwanted jobs.
 
 Otherwise:
