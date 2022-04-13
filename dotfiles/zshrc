@@ -1,0 +1,7 @@
+export PATH=$PATH:/Users/ei19760/programs/homebrew/bin
+export PATH=$PATH:/Users/ei19760/git/infrastructure/local_bin
+export PATH=/Users/ei19760/programs/anaconda3/bin:$PATH
+
+export PS1="%~ $ "
+alias texshop='open -a TexShop'
+alias mate='open -a TextMate'
