@@ -31,7 +31,7 @@ To select gpus, use the `--gpumem` option.  It takes a list of `11` (for 1080 an
 ## Interactive jobs in Blue Pebble
 To get an interactive job with one GPU, use:
 ```
-lint -g 1
+lint -c 1 -g 1 -m 22 -t 12
 ```
 This should only be used for debugging code (not for running it).  And you should be careful to close it after you're done.
 
