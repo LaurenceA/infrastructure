@@ -2,7 +2,11 @@
 
 ## Running jobs in Blue Pebble
 
-Making a job script for each run is extremely tedious.  The files in `blue_pebble/bin` automate this.
+Making a job script for each run is extremely tedious.  The files in `blue_pebble/bin` automate this.  To use these, you need to first download this repo (I downloaded it to `~/git/infrastructure`), then add `blue_pebble/bin` to the path.  You need to add:
+```
+export PATH="$PATH:/user/home/<userid>/git/infrastructure/blue_pebble/bin"
+```
+to `.bash_profile`.  (You will need to log out then log back in to load the new path).
 
 `lscript` prints a job script to STDOUT based on command line arguments, for instance for a job with 1 CPU, 1 GPU and 22 GB of memory, we would use,
 ```
