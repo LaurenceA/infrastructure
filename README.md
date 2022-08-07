@@ -40,7 +40,7 @@ lint -c 1 -g 1 -m 22 -t 12
 This should only be used for debugging code (not for running it).  And you should be careful to close it after you're done.
 
 ## Recommended resource limits
-The standard GPU nodes come with 8 CPUs, 96 GB of memory, and 4 GPUs.
+The standard 1080/2080 GPU nodes come with 8 CPUs, 96 GB of memory, and 4 GPUs.
 Therefore for maximum usage of the GPUs, it makes sense to use 1 or 2 CPUs and up to 22 GB of memory per CPU (to use some for the system).
 
 ## Logging in to Blue Pebble
@@ -111,3 +111,7 @@ Go to:
 ```
 Change the `url` line in `[remote "origin"]` from e.g. `url = https://github.com/username/repo_name.git` to `url = ssh://github.com/username/repo_name.git`.
 
+## Updating paths / installing modules
+You can browse available modules through `module avail`, and install a module through `module add ...`.  This is mainly useful for very fundamental things such as `gcc`.  For Python, I usually install my own Anaconda in the `$HOME` or `$WORK` directory.
+
+If you want to install a module by default, use `~/.bashrc`, _not_ `~/.bash_profile`.  (It seems that `.bashrc` is run on interactive jobs, but `.bash_profile` isn't).
