@@ -40,8 +40,12 @@ lint -c 1 -g 1 -m 22 -t 12
 This should only be used for debugging code (not for running it).  And you should be careful to close it after you're done.
 
 ## Recommended resource limits
-The standard 1080/2080 GPU nodes come with 8 CPUs, 96 GB of memory, and 4 GPUs.
-Therefore for maximum usage of the GPUs, it makes sense to use 1 or 2 CPUs and up to 22 GB of memory per CPU (to use some for the system).
+| Card | card memory| system memory per GPU  | CPUs per GPU |
+| ------ | ----- | ------------- | ---- |
+| 1080/2080 | 11 | 22 | 2 |
+| 3090 | 24 | 62 | 2 |
+| A100 | 40 | 124 | 16 |
+
 
 ## Logging in to Blue Pebble
 I have a hatred of VPNs.  You can login to Blue Pebble without going through the VPN using `local_bin/bp_ssh`. (You'll need to update it with your username though!)
