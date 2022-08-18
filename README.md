@@ -96,7 +96,7 @@ If you don't want that, there are other approaches such as `sshfs` which loads a
 * Local extensions will not be available on the remote initialisation. Remote and local settings can be synced. Solutions to this and further information on all of the above with FAQ and troubleshooting are detailed in the VS Code [documentation](https://code.visualstudio.com/docs/remote/ssh).
 
 ## Pushing/pulling to GitHub without a password:
-* Generate a "Personal Access Token" with repo permissions: (https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
+* Generate a "Personal Access Token" with repo permissions + no expiration (you can always delete the token manually through the web interface): (https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
 * Use that token in place of a password, e.g.
 ```
 ~/git/llm_ppl $ git pull
