@@ -95,7 +95,27 @@ If you don't want that, there are other approaches such as `sshfs` which loads a
 * Select `Remote-SSH: Connect to Host...` from the VSCode Command Palette, then enter user@bp1-login.acrc.bris.ac.uk.
 * Local extensions will not be available on the remote initialisation. Remote and local settings can be synced. Solutions to this and further information on all of the above with FAQ and troubleshooting are detailed in the VS Code [documentation](https://code.visualstudio.com/docs/remote/ssh).
 
-## Github SSH.
+## Pushing/pulling to GitHub without a password:
+* Generate a "Personal Access Token" with repo permissions: (https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
+* Use that token in place of a password, e.g.
+```
+~/git/llm_ppl $ git pull
+Username for 'https://github.com': LaurenceA
+Password for 'https://LaurenceA@github.com':
+```
+* You can save the PAT using:
+```
+git config --global credential.helper store
+```
+* This will save your token in plaintext in `~/.git-credentials`.  So you may want to check permissions on that file...
+
+#### Deprecated: use an SSH key.
+
+Generate a new SSH key:
+```
+ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+```
+
 Generate a new SSH key:
 ```
 ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
