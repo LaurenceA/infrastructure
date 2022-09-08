@@ -30,7 +30,7 @@ belongs to which job.  This may require you to use `print('...', flush=True)`, t
 
 There is a `--venv` command line argument for specifying the Python virtual environment to activate on the remote node (which tends to be quite difficult if it isn't hard-coded).
 
-To select gpus, use the `--gpumem` option.  It takes a list of `11` (for 1080 and 2080 cards), `24` (for 3090's) and `40` (for 40gb A100s).  You can give a list (e.g. `--gpumem 11 24`).
+To select gpus (CNU nodes only), use the `--gpumem` option.  It takes a list of `11` (for 1080 and 2080 cards), `24` (for 3090's) and `40` (for 40gb A100s).  You can give a list (e.g. `--gpumem 11 24`).
 
 ## Interactive jobs in Blue Pebble
 To get an interactive job with one GPU, use:
@@ -39,7 +39,7 @@ lint -c 1 -g 1 -m 22 -t 12
 ```
 This should only be used for debugging code (not for running it).  And you should be careful to close it after you're done.
 
-## Recommended resource limits
+## Recommended resource limits (CNU nodes only)
 | Card | card memory| system memory per GPU  | CPUs per GPU |
 | ------ | ----- | ------------- | ---- |
 | 1080/2080 | 11 | 22 | 2 |
