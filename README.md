@@ -45,7 +45,7 @@ This should only be used for debugging code (not for running it).  And you shoul
 | 1080/2080 | 11 | 22 | 2 |
 | 3090 | 24 | 62 | 2 |
 | A100 | 40 | 124 | 16 |
-
+| A100 | 80 | 124 | 16 |
 
 ## Logging in to Blue Pebble
 I have a hatred of VPNs.  You can login to Blue Pebble without going through the VPN using `local_bin/bp_ssh`. (You'll need to update it with your username though!)
