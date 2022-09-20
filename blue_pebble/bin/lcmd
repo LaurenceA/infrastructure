@@ -3,11 +3,12 @@
 import sys
 import argparse
 
-gpu_mems = [11, 24, 40]
+gpu_mems = [11, 24, 40, 80]
 gpu_nodes = {
     11 : ["bp1-gpu004", "bp1-gpu006", "bp1-gpu016", "bp1-gpu017"],
     24 : ["bp1-gpu029"],
-    40 : ["bp1-gpu031", "bp1-gpu032"]
+    40 : ["bp1-gpu031", "bp1-gpu032"],
+    80 : ["bp1-gpu038", "bp1-gpu039"],
 }
 
 parser = argparse.ArgumentParser()
