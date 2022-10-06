@@ -39,17 +39,16 @@ lint -c 1 -g 1 -m 22 -t 12 --gputype rtx_2080 rtx_3090
 ```
 This should only be used for debugging code (not for running it).  And you should be careful to close it after you're done.
 
-## Recommended resource limits (CNU nodes only)
-Different cards and resource limits.
-
+## Choosing different cards, and the corresponding recommended CPU/memory resources (CNU nodes only)
 To run a job with only a specific type of GPU, use:
 ```
 lint -c 1 -g 1 -m 22 -t 12 --gputype rtx_2080 rtx_3090
 ```
 (here, a 2080 or a 3090).
 
-We have 40 and 80 GB A100's, but the schduler can't tell the difference.  To exclude the 40 GB cards, use `exclude_40G_A100`
+We have 40 and 80 GB A100's, but the schduler can't tell the difference.  To exclude the 40 GB cards, use `--exclude_40G_A100`
 
+To make full use of all the GPUs on a system, it is recommended that you only use the following system memory/CPUs per GPU:
 | Card | card memory| system memory per GPU  | CPUs per GPU |
 | ------ | ----- | ------------- | ---- |
 | `rtx_2080` | 11 | 22 | 2 |
