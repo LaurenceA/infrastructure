@@ -1,3 +1,4 @@
 #!/bin/sh
 
-squeue --me $@
+cmd="lscript $@ | $(lcmd $@)"
+eval $cmd
