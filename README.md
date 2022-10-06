@@ -33,19 +33,28 @@ There is a `--venv` command line argument for specifying the Python virtual envi
 To select gpus (CNU nodes only), use the `--gpumem` option.  It takes a list of `11` (for 1080 and 2080 cards), `24` (for 3090's) and `40` (for 40gb A100s).  You can give a list (e.g. `--gpumem 11 24`).
 
 ## Interactive jobs in Blue Pebble
-To get an interactive job with one GPU, use:
+To get an interactive job with one GPU (either a 2080 or a 3090), use:
 ```
-lint -c 1 -g 1 -m 22 -t 12
+lint -c 1 -g 1 -m 22 -t 12 --gputype rtx_2080 rtx_3090
 ```
 This should only be used for debugging code (not for running it).  And you should be careful to close it after you're done.
 
 ## Recommended resource limits (CNU nodes only)
+Different cards and resource limits.
+
+To run a job with only a specific type of GPU, use:
+```
+lint -c 1 -g 1 -m 22 -t 12 --gputype rtx_2080 rtx_3090
+```
+(here, a 2080 or a 3090).
+
+We have 40 and 80 GB A100's, but the schduler can't tell the difference.  To exclude the 40 GB cards, use `exclude_40G_A100`
+
 | Card | card memory| system memory per GPU  | CPUs per GPU |
 | ------ | ----- | ------------- | ---- |
-| 1080/2080 | 11 | 22 | 2 |
-| 3090 | 24 | 62 | 2 |
-| A100 | 40 | 124 | 16 |
-| A100 | 80 | 124 | 16 |
+| `rtx_2080` | 11 | 22 | 2 |
+| `rtx_3090` | 24 | 62 | 2 |
+| `A100` | 40/80 | 124 | 16 |
 
 ## Logging in to Blue Pebble
 I have a hatred of VPNs.  You can login to Blue Pebble without going through the VPN using `local_bin/bp_ssh`. (You'll need to update it with your username though!)

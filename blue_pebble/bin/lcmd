@@ -3,30 +3,29 @@
 import sys
 import argparse
 
-gpu_mems = [11, 24, 40, 80]
-gpu_nodes = {
-    11 : ["bp1-gpu004", "bp1-gpu006", "bp1-gpu016", "bp1-gpu017"],
-    24 : ["bp1-gpu029"],
-    40 : ["bp1-gpu031", "bp1-gpu032"],
-    80 : ["bp1-gpu038", "bp1-gpu039"],
-}
-
+gpu_choices = ["A100", "rtx_3090", "rtx_2080"]
 parser = argparse.ArgumentParser()
-parser.add_argument('--cpus',    '-c', type=int, nargs='?', default=1)
-parser.add_argument('--gpus',    '-g', type=int, nargs='?')
-parser.add_argument('--hours',   '-t', type=int, nargs='?', default=1,  help="time in hours")
-parser.add_argument('--mins',          type=int, nargs='?', default=0,  help="time in mins")
-parser.add_argument('--memory',  '-m', type=int, nargs='?', default=22, help="memory in gp")
-parser.add_argument('--queue',   '-q', type=str, nargs='?',             help="queue")
-parser.add_argument('--gpumem',        type=int, nargs='*', choices=gpu_mems)
+parser.add_argument('--cpus',    '-c',   type=int, nargs='?', default=1)
+parser.add_argument('--gpus',    '-g',   type=int, nargs='?')
+parser.add_argument('--hours',   '-t',   type=int, nargs='?', default=1,  help="time in hours")
+parser.add_argument('--mins',            type=int, nargs='?', default=0,  help="time in mins")
+parser.add_argument('--memory',  '-m',   type=int, nargs='?', default=22, help="memory in gp")
+parser.add_argument('--queue',   '-q',   type=str, nargs='?',             help="queue")
+parser.add_argument('--gputype',         type=str, nargs='*', choices=gpu_choices, help="Could be {rtx_2080, rtx_3090, A100}, can give a space-separated list --gputype rtx_2080 rtx_3090")
+parser.add_argument('--exclude_40G_A100', action='store_true', help="Scheduler doesn't know the difference between the 40G and 80G A100s, but some code will only run on the 80G cards")
 
 # remove args after --cmd, if present
 if "--cmd" in sys.argv:
     cmd_idx = sys.argv.index('--cmd')
     arglist = sys.argv[1:cmd_idx]
+    #If we have --cmd, then we're being called by lcmd/lrun, with lscript and there may be extra command
+    #line arguments that only lscript knows how to parse.
+    args,_ = parser.parse_known_args(arglist)
 else:
     arglist = sys.argv[1:]
-args,_ = parser.parse_known_args(arglist)
+    #If we don't have --cmd, then we're being called by lint (with no lscript), so we should know
+    #how to parse all arguments.
+    args = parser.parse_args(arglist)
 
 cmd = ""
 
@@ -42,17 +41,18 @@ if args.queue is not None:
     cmd = cmd + f" --partition {args.queue}"
 
 if args.gpus is not None:
-    #if args.gputype is not None:
-    #    cmd = cmd + f" --gpus={args.gputype}:{args.gpus}"
-    #else:
-    cmd = cmd + f" --gpus={args.gpus}"
+    if args.gputype is None:
+        cmd = cmd + f" --gpus={args.gpus}"
+    elif 1==len(args.gputype):
+        cmd = cmd + f" --gpus={args.gputype[0]}:{args.gpus}"
+    else:
+        #Order of GPUs determines which one the scheduler will prefer, if both are open.
+        #Prefers the last GPU in the list, so we put the least powerful GPU last.
+        gpu_types = [gpu for gpu in gpu_choices if gpu in args.gputype]
+        cmd = cmd + " --gpus={" + ",".join(f"{gpu}:{args.gpus}" for gpu in gpu_types) + "}"
 
-if args.gpumem is not None:
-    exclude_mem = set(gpu_mems) - set(args.gpumem)    
-    exclude_nodes_list_list = [gpu_nodes[mem] for mem in exclude_mem]
-    exclude_nodes = [y for x in exclude_nodes_list_list for y in x]
-    exclude_nodes_str = ",".join(exclude_nodes)
+if args.exclude_40G_A100:
+    cmd = cmd + f" --exclude=bp1-gpu031,bp1-gpu032"
     
-    cmd = cmd + f" --exclude={exclude_nodes_str}"
 
 print(cmd)
