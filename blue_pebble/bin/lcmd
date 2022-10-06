@@ -52,7 +52,6 @@ if args.gpus is not None:
         cmd = cmd + " --gpus={" + ",".join(f"{gpu}:{args.gpus}" for gpu in gpu_types) + "}"
 
 if args.exclude_40G_A100:
-    cmd = cmd + f" --exclude=bp1-gpu031,bp1-gpu032"
-    
+    cmd = cmd + " --exclude=bp1-gpu031,bp1-gpu032"
 
-print(cmd)
+print(cmd + " ")
