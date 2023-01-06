@@ -11,6 +11,7 @@ parser.add_argument('--gpus',    '-g', type=int, nargs='?')
 parser.add_argument('--hours',   '-t', type=int, nargs='?', default=1, help="time in hours")
 parser.add_argument('--mins',          type=int, nargs='?', default=0, help="time in mins")
 parser.add_argument('--memory',  '-m', type=int, nargs='?',             help="memory in gp")
+parser.add_argument('--name',    '-n', type=str, nargs='?',             help="manually choose output filename")
 parser.add_argument('--queue',   '-q', type=str, nargs='?',             help="queue")
 parser.add_argument('--gputype',       type=str, nargs='*')
 parser.add_argument('--venv',          type=str, nargs='?')
@@ -29,7 +30,12 @@ cmd = ' '.join(sys.argv[(1+cmd_idx):])
 
 print(f"#!/bin/sh",)
 
-if args.autoname:
+if args.name:
+    path=args.name
+    print(f"#SBATCH --job-name={os.path.basename(path)}")
+    print(f"#SBATCH --output={path}.o")
+
+elif args.autoname:
     path = sys.argv[cmd_idx+3]
     print(f"#SBATCH --job-name={os.path.basename(path)}")
     print(f"#SBATCH --output={path}.o")
