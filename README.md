@@ -10,19 +10,19 @@ to `.bash_profile`.  (You will need to log out then log back in to load the new 
 
 `lscript` prints a job script to STDOUT based on command line arguments, for instance for a job with 1 CPU, 1 GPU and 22 GB of memory, we would use,
 ```
-lscript -c 1 -g 1 -m 22 --cmd python my_training_script.py --my_command_line_arg
+lscript -c 1 -g 1 -m 22 -a hpc_project_code --cmd python my_training_script.py --my_command_line_arg
 ```
 where everything that comes after `--cmd` is the run command.  If you need to edit the submission script (e.g. to add extra modules), this is the file to change!
 
 To automatically submit that job, we'd use `lbatch`,
 ```
-lbatch -c 1 -g 1 -m 22 --cmd python my_training_script.py --my_command_line_arg
+lbatch -c 1 -g 1 -m 22 -a hpc_project_code --cmd python my_training_script.py --my_command_line_arg
 ```
 Note that I have also included `lsub`, which blocks (waits until the job is completed).  This is useful in some ways (because it makes it easy to kill jobs when you realise something isn't right).  But you need to start the jobs inside `tmux` or `screen`, otherwise the jobs will be terminated when you loose your connection.
 
 Unfortunately, these scripts tend to produce a huge number of files that look like `STDIN.o12389412`.  To rectify that, we use the `--autoname` argument,
 ```
-lbatch -c 1 -g 1 -m 22 --autoname --cmd python my_training_script.py output_filename --my_command_line_arg
+lbatch -c 1 -g 1 -m 22 -a hpc_project_code --autoname --cmd python my_training_script.py output_filename --my_command_line_arg
 ```
 `--autoname` assumes that the job's output filename comes in third place (after `python` and `my_training_script.py`),
 and produces logs with the name: `output_filename.o`, which tends to be much more helpful for working out which log-file
@@ -32,17 +32,23 @@ There is a `--venv` command line argument for specifying the Python virtual envi
 
 To select gpus (CNU nodes only), use the `--gpumem` option.  It takes a list of `11` (for 1080 and 2080 cards), `24` (for 3090's) and `40` (for 40gb A100s).  You can give a list (e.g. `--gpumem 11 24`).
 
+To specify your HPC project code use the `-a` option. Jobs submitted on Blue Pebble will not execute without one of these. Your project code can be determined with 
+```
+sacctmgr show user withassoc format=account where user=$USER
+```
+or by asking your PI.
+
 ## Interactive jobs in Blue Pebble
 To get an interactive job with one GPU (either a 2080 or a 3090), use:
 ```
-lint -c 1 -g 1 -m 22 -t 12 --gputype rtx_2080 rtx_3090
+lint -c 1 -g 1 -m 22 -t 12 -a hpc_project_code --gputype rtx_2080 rtx_3090
 ```
 This should only be used for debugging code (not for running it).  And you should be careful to close it after you're done.
 
 ## Choosing different cards, and the corresponding recommended CPU/memory resources (CNU nodes only)
 To run a job with only a specific type of GPU, use:
 ```
-lint -c 1 -g 1 -m 22 -t 12 --gputype rtx_2080 rtx_3090
+lint -c 1 -g 1 -m 22 -t 12 -a hpc_project_code --gputype rtx_2080 rtx_3090
 ```
 (here, a 2080 or a 3090).
 
