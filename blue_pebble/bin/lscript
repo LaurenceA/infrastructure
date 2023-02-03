@@ -12,6 +12,7 @@ parser.add_argument('--hours',   '-t', type=int, nargs='?', default=1, help="tim
 parser.add_argument('--mins',          type=int, nargs='?', default=0, help="time in mins")
 parser.add_argument('--memory',  '-m', type=int, nargs='?',             help="memory in gp")
 parser.add_argument('--name',    '-n', type=str, nargs='?',             help="manually choose output filename")
+parser.add_argument('--account', '-a', type=str, nargs='?',             help="hpc project code")
 parser.add_argument('--queue',   '-q', type=str, nargs='?',             help="queue")
 parser.add_argument('--gputype',       type=str, nargs='*')
 parser.add_argument('--venv',          type=str, nargs='?')
