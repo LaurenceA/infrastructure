@@ -1,6 +1,6 @@
 # infrastructure
 
-## Running jobs in Blue Pebble
+# Running jobs in Blue Pebble
 
 Making a job script for each run is extremely tedious.  The files in `blue_pebble/bin` automate this.  To use these, you need to first download this repo (I downloaded it to `~/git/infrastructure`), then add `blue_pebble/bin` to the path.  You need to add:
 ```
@@ -10,19 +10,19 @@ to `.bash_profile`.  (You will need to log out then log back in to load the new 
 
 `lscript` prints a job script to STDOUT based on command line arguments, for instance for a job with 1 CPU, 1 GPU and 22 GB of memory, we would use,
 ```
-lscript -c 1 -g 1 -m 22 -a hpc_project_code --cmd python my_training_script.py --my_command_line_arg
+lscript -c 1 -g 1 -m 22 -a hpc_project_code -q queue_name --cmd python my_training_script.py --my_command_line_arg
 ```
 where everything that comes after `--cmd` is the run command.  If you need to edit the submission script (e.g. to add extra modules), this is the file to change!
 
 To automatically submit that job, we'd use `lbatch`,
 ```
-lbatch -c 1 -g 1 -m 22 -a hpc_project_code --cmd python my_training_script.py --my_command_line_arg
+lbatch -c 1 -g 1 -m 22 -a hpc_project_code -q queue_name --cmd python my_training_script.py --my_command_line_arg
 ```
 Note that I have also included `lsub`, which blocks (waits until the job is completed).  This is useful in some ways (because it makes it easy to kill jobs when you realise something isn't right).  But you need to start the jobs inside `tmux` or `screen`, otherwise the jobs will be terminated when you loose your connection.
 
-Unfortunately, these scripts tend to produce a huge number of files that look like `STDIN.o12389412`.  To rectify that, we use the `--autoname` argument,
+These scripts tend to produce a huge number of files that look like `STDIN.o12389412`.  To rectify that, we use the `--autoname` argument,
 ```
-lbatch -c 1 -g 1 -m 22 -a hpc_project_code --autoname --cmd python my_training_script.py output_filename --my_command_line_arg
+lbatch -c 1 -g 1 -m 22 -a hpc_project_code -q queue_name --autoname --cmd python my_training_script.py output_filename --my_command_line_arg
 ```
 `--autoname` assumes that the job's output filename comes in third place (after `python` and `my_training_script.py`),
 and produces logs with the name: `output_filename.o`, which tends to be much more helpful for working out which log-file
@@ -30,25 +30,23 @@ belongs to which job.  This may require you to use `print('...', flush=True)`, t
 
 There is a `--venv` command line argument for specifying the Python virtual environment to activate on the remote node (which tends to be quite difficult if it isn't hard-coded).
 
-To select gpus (CNU nodes only), use the `--gpumem` option.  It takes a list of `11` (for 1080 and 2080 cards), `24` (for 3090's) and `40` (for 40gb A100s).  You can give a list (e.g. `--gpumem 11 24`).
-
-To specify your HPC project code use the `-a` option. Jobs submitted on Blue Pebble will not execute without one of these. Your project code can be determined with 
+To specify your HPC project code use the `-a` option. Jobs submitted on Blue Pebble will not run without a project code. To get a your project code, ask your PI.  Additionally, accounts can only run with certain project codes.  To see what project code(s) are associated with your account, use 
 ```
 sacctmgr show user withassoc format=account where user=$USER
 ```
-or by asking your PI.
+To get a project code added to your account, email `hpc-help@bristol.ac.uk`.
 
 ## Interactive jobs in Blue Pebble
 To get an interactive job with one GPU (either a 2080 or a 3090), use:
 ```
-lint -c 1 -g 1 -m 22 -t 12 -a hpc_project_code --gputype rtx_2080 rtx_3090
+lint -c 1 -g 1 -m 22 -t 12 -a hpc_project_code -q queue_name
 ```
 This should only be used for debugging code (not for running it).  And you should be careful to close it after you're done.
 
 ## Choosing different cards, and the corresponding recommended CPU/memory resources (CNU nodes only)
 To run a job with only a specific type of GPU, use:
 ```
-lint -c 1 -g 1 -m 22 -t 12 -a hpc_project_code --gputype rtx_2080 rtx_3090
+lint -c 1 -g 1 -m 22 -t 12 -a hpc_project_code -q queue_name --gputype rtx_2080 rtx_3090
 ```
 (here, a 2080 or a 3090).
 
@@ -61,10 +59,12 @@ To make full use of all the GPUs on a system, it is recommended that you only us
 | `rtx_3090` | 24 | 62 | 2 |
 | `A100` | 40/80 | 124 | 16 |
 
+# Notes
+
 ## Logging in to Blue Pebble
 I have a hatred of VPNs.  You can login to Blue Pebble without going through the VPN using `local_bin/bp_ssh`. (You'll need to update it with your username though!)
 
-## Guides
+## Jupyter in Blue Pebble
 
 * [Running Jupyter in Blue Pebble](instructions/jupyter-on-blue-pebble.md)
 
@@ -122,32 +122,6 @@ Password for 'https://LaurenceA@github.com':
 git config --global credential.helper store
 ```
 * This will save your token in plaintext in `~/.git-credentials`.  So you may want to check permissions on that file...
-
-#### Deprecated: use an SSH key.
-
-Generate a new SSH key:
-```
-ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
-```
-
-Generate a new SSH key:
-```
-ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
-```
-
-Copy `~/.ssh/id_rsa.pub` to your GitHub account settings (https://github.com/settings/keys).
-
-Test SSH key:
-```
-$ ssh -T git@github.com
-Hi <username>! You've successfully authenticated, but GitHub does not provide shell access.
-```
-
-Go to:
-```
-.git/config
-```
-Change the `url` line in `[remote "origin"]` from e.g. `url = https://github.com/username/repo_name.git` to `url = ssh://github.com/username/repo_name.git`.
 
 ## Updating paths / installing modules
 You can browse available modules through `module avail`, and install a module through `module add ...`.  This is mainly useful for very fundamental things such as `gcc`.  For Python, I usually install my own Anaconda in the `$HOME` or `$WORK` directory.
