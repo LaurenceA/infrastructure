@@ -37,7 +37,7 @@ sacctmgr show user withassoc format=account where user=$USER
 To get a project code added to your account, email `hpc-help@bristol.ac.uk`.
 
 ## Interactive jobs in Blue Pebble
-To get an interactive job with one GPU (either a 2080 or a 3090), use:
+To get an interactive job with one GPU, use:
 ```
 lint -c 1 -g 1 -m 22 -t 12 -a hpc_project_code -q queue_name
 ```
