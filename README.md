@@ -127,3 +127,9 @@ git config --global credential.helper store
 You can browse available modules through `module avail`, and install a module through `module add ...`.  This is mainly useful for very fundamental things such as `gcc`.  For Python, I usually install my own Anaconda in the `$HOME` or `$WORK` directory.
 
 If you want to install a module by default, use `~/.bashrc`, _not_ `~/.bash_profile`.  (It seems that `.bashrc` is run on interactive jobs, but `.bash_profile` isn't).
+
+## Uploading to arXiv
+
+* Check there aren't any extraneous files / embarassing comments in the Overleaf.
+* Download a zip from Overleaf (Submit -> ArXiv).  If you're on OSX, the OS may automatically unzip the file, in which case you have to zip it again (Finder -> Right click on folder -> Compress "<filename>").
+* You can upload the entire zip to arXiv.
