@@ -10,16 +10,17 @@ parser.add_argument('--cpus',    '-c', type=int, nargs='?', default=1)
 parser.add_argument('--gpus',    '-g', type=int, nargs='?')
 parser.add_argument('--hours',   '-t', type=int, nargs='?', default=1, help="time in hours")
 parser.add_argument('--mins',          type=int, nargs='?', default=0, help="time in mins")
-parser.add_argument('--memory',  '-m', type=int, nargs='?',             help="memory in gp")
+parser.add_argument('--memory',  '-m', type=int, nargs='?',             help="memory in gb")
 parser.add_argument('--name',    '-n', type=str, nargs='?',             help="manually choose output filename")
 parser.add_argument('--account', '-a', type=str, nargs='?',             help="hpc project code")
 parser.add_argument('--queue',   '-q', type=str, nargs='?',             help="queue")
 parser.add_argument('--gputype',       type=str, nargs='*')
-parser.add_argument('--venv',          type=str, nargs='?')
+parser.add_argument('--venv',          type=str, nargs='?',              help='path to virtual env. ')  
+parser.add_argument('--conda-env',     type=str, nargs='?',             help='Name of conda environment to use. If --venv is also specified then venv will be used.')
 parser.add_argument('--port',          type=str, nargs='*',             help="ports to open ssh tunnels back to login nodes")
 parser.add_argument('--cmd',           type=str, nargs='*',             help="job command --- must be last argument")
-parser.add_argument('--exclude_40G_A100', action='store_true', help="Scheduler doesn't know the difference between the 40G and 80G A100s, but some code will only run on the 80G cards")
-parser.add_argument('--autoname', action='store_true',                   help="extract output filename based on job --- always uses third argument after --cmd, as in --cmd python file.py output_filename")
+parser.add_argument('--exclude_40G_A100', action='store_true',          help="Scheduler doesn't know the difference between the 40G and 80G A100s, but some code will only run on the 80G cards")
+parser.add_argument('--autoname', action='store_true',                  help="extract output filename based on job --- always uses third argument after --cmd, as in --cmd python file.py output_filename")
 
 #parser.add_argument('ssd', '-s', action=store_true)
 
@@ -40,7 +41,7 @@ elif args.autoname:
     path = sys.argv[cmd_idx+3]
     print(f"#SBATCH --job-name={os.path.basename(path)}")
     print(f"#SBATCH --output={path}.o")
-
+    
 print('')
 print('cd $SLURM_SUBMIT_DIR')
 
@@ -50,8 +51,11 @@ if args.port:
             print(f"/usr/bin/ssh -N -f -R {port}:localhost:{port} bp1-login0{i}.data.bp.acrc.priv")
 
 print('module add lib/hdf5/1.10.6-gcc')
+
 if args.venv is not None:
     print(f'source {args.venv}/bin/activate')
+elif args.conda_env is not None:
+    print(f'conda activate {args.conda_env}')
 print('')
 
 if args.autoname:
