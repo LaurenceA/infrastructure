@@ -8,7 +8,6 @@ import subprocess
 parser = argparse.ArgumentParser()
 parser.add_argument('--cpus',    '-c', type=int, nargs='?', default=1)
 parser.add_argument('--gpus',    '-g', type=int, nargs='?')
-parser.add_argument('--days',    '-d', type=int, nargs='?', default=0, help="time in days")
 parser.add_argument('--hours',   '-t', type=int, nargs='?', default=1, help="time in hours")
 parser.add_argument('--mins',          type=int, nargs='?', default=0, help="time in mins")
 parser.add_argument('--memory',  '-m', type=int, nargs='?',             help="memory in gb")
