@@ -42,15 +42,7 @@ elif args.autoname:
     path = sys.argv[cmd_idx+3]
     print(f"#SBATCH --job-name={os.path.basename(path)}")
     print(f"#SBATCH --output={path}.o")
-
-if args.queue:
-    print(f'#SBATCH --partition {args.queue}')
     
-if args.memory:
-    print(f'#SBATCH --mem={args.memory}gb')
-    
-print(f'#SBATCH --time={args.days}-{args.hours:02d}:{args.mins:02d}:00')
-
 print('')
 print('cd $SLURM_SUBMIT_DIR')
 
