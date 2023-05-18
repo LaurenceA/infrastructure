@@ -4,6 +4,7 @@ import os
 import sys
 import argparse
 import subprocess
+from pathlib import Path
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--cpus',    '-c', type=int, nargs='?', default=1)
@@ -15,8 +16,9 @@ parser.add_argument('--name',    '-n', type=str, nargs='?',             help="ma
 parser.add_argument('--account', '-a', type=str, nargs='?',             help="hpc project code")
 parser.add_argument('--queue',   '-q', type=str, nargs='?',             help="queue")
 parser.add_argument('--gputype',       type=str, nargs='*')
-parser.add_argument('--venv',          type=str, nargs='?',              help='path to virtual env. ')  
+parser.add_argument('--venv',          type=str, nargs='?',             help='path to virtual env. ')  
 parser.add_argument('--conda-env',     type=str, nargs='?',             help='Name of conda environment to use. If --venv is also specified then venv will be used.')
+parser.add_argument('--array-range',   type=int, nargs=2,               help='Min and max of array range for array job', default=None)
 parser.add_argument('--port',          type=str, nargs='*',             help="ports to open ssh tunnels back to login nodes")
 parser.add_argument('--cmd',           type=str, nargs='*',             help="job command --- must be last argument")
 parser.add_argument('--exclude_40G_A100', action='store_true',          help="Scheduler doesn't know the difference between the 40G and 80G A100s, but some code will only run on the 80G cards")
@@ -28,20 +30,32 @@ parser.add_argument('--autoname', action='store_true',                  help="ex
 cmd_idx = sys.argv.index('--cmd')
 args = sys.argv[1:cmd_idx]
 args = parser.parse_args(args)
+
 cmd = ' '.join(sys.argv[(1+cmd_idx):])
 
 print(f"#!/bin/sh",)
 
+array_id=''
+if args.array_range is not None:
+    if len(args.array_range) != 2 or "ARRAY_ID" not in cmd:
+        # Conditions not met to run array job
+        pass
+    else:   
+        print(f'#SBATCH --array={args.array_range[0]}-{args.array_range[1]}')
+        cmd = cmd.replace('ARRAY_ID', '${SLURM_ARRAY_TASK_ID}')
+        array_id = '%a'
+    
 if args.name:
     path=args.name
     print(f"#SBATCH --job-name={os.path.basename(path)}")
-    print(f"#SBATCH --output={path}.o")
+    print(f"#SBATCH --output={path}{array_id}.o")
 
 elif args.autoname:
     path = sys.argv[cmd_idx+3]
     print(f"#SBATCH --job-name={os.path.basename(path)}")
-    print(f"#SBATCH --output={path}.o")
-    
+    print(f"#SBATCH --output={path}{array_id}.o")
+
+          
 print('')
 print('cd $SLURM_SUBMIT_DIR')
 
@@ -55,6 +69,11 @@ print('module add lib/hdf5/1.10.6-gcc')
 if args.venv is not None:
     print(f'source {args.venv}/bin/activate')
 elif args.conda_env is not None:
+    # Find conda path
+    conda_path = Path(subprocess.run(['which', 'conda'], capture_output=True, encoding='utf-8').stdout)
+    conda_activate_path = str(conda_path.parents[1] / 'etc/profile.d/conda.sh')
+    
+    print(f'source {conda_activate_path}')
     print(f'conda activate {args.conda_env}')
 print('')
 
