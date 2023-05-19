@@ -36,6 +36,11 @@ sacctmgr show user withassoc format=account where user=$USER
 ```
 To get a project code added to your account, email `hpc-help@bristol.ac.uk`.
 
+To submit an array job, specify an array range via `--array-range` and replace one of your command inputs with ARRAY_ID. E.g. to run my_training_script.py in parallel with inputs in the range 0-10:
+```
+lbatch -a hpc_project_code -q queue_name --array-range 0 10 --cmd python my_training_script.py ARRAY_ID
+```
+
 ## Interactive jobs in Blue Pebble
 To get an interactive job with one GPU, use:
 ```
