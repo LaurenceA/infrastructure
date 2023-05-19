@@ -43,7 +43,7 @@ if args.array_range is not None:
     else:   
         print(f'#SBATCH --array={args.array_range[0]}-{args.array_range[1]}')
         cmd = cmd.replace('ARRAY_ID', '${SLURM_ARRAY_TASK_ID}')
-        array_id = '%a'
+        array_id = '-%a'
     
 if args.name:
     path=args.name
