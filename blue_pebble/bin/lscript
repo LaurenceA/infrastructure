@@ -18,7 +18,7 @@ parser.add_argument('--queue',   '-q', type=str, nargs='?',             help="qu
 parser.add_argument('--gputype',       type=str, nargs='*')
 parser.add_argument('--venv',          type=str, nargs='?',             help='path to virtual env. ')  
 parser.add_argument('--conda-env',     type=str, nargs='?',             help='Name of conda environment to use. If --venv is also specified then venv will be used.')
-parser.add_argument('--array-range',   type=int, nargs=2,               help='Min and max of array range for array job', default=None)
+parser.add_argument('--array-range',   type=str, nargs='?',             help='Array range for array job, as a string; e.g. 1-10 or comma seperated list of values. You must also replace an input arg with ARRAY_ID for this to work.', default=None)
 parser.add_argument('--port',          type=str, nargs='*',             help="ports to open ssh tunnels back to login nodes")
 parser.add_argument('--cmd',           type=str, nargs='*',             help="job command --- must be last argument")
 parser.add_argument('--exclude_40G_A100', action='store_true',          help="Scheduler doesn't know the difference between the 40G and 80G A100s, but some code will only run on the 80G cards")
@@ -37,11 +37,11 @@ print(f"#!/bin/sh",)
 
 array_id=''
 if args.array_range is not None:
-    if len(args.array_range) != 2 or "ARRAY_ID" not in cmd:
+    if "ARRAY_ID" not in cmd:
         # Conditions not met to run array job
         pass
     else:   
-        print(f'#SBATCH --array={args.array_range[0]}-{args.array_range[1]}')
+        print(f'#SBATCH --array={args.array_range}')
         cmd = cmd.replace('ARRAY_ID', '${SLURM_ARRAY_TASK_ID}')
         array_id = '-%a'
     
