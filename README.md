@@ -36,7 +36,7 @@ sacctmgr show user withassoc format=account where user=$USER
 ```
 To get a project code added to your account, email `hpc-help@bristol.ac.uk`.
 
-To submit an array job, specify the approproate array range (as a string) via `--array-range` and replace one of your command inputs with ARRAY_ID. E.g. to run my_training_script.py in parallel with inputs in the range 0 to 10 in intervals of 2
+To submit an array job, specify the appropriate array range as a string argument to `--array-range` and replace one of your command inputs with ARRAY_ID. E.g. to run my_training_script.py in parallel with inputs in the range 0 to 10 in intervals of 2
 ```
 lbatch -a hpc_project_code -q queue_name --array-range 0-10:2 --cmd python my_training_script.py ARRAY_ID
 ```
