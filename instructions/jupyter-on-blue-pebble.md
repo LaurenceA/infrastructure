@@ -39,6 +39,14 @@ Once the job starts running on the cluster, a file called `slurm-JOBID.out` will
 
 Don't forget to cancel the job once you've finished.
 
+If you want to connect a jupyter notebook in VSCode to a remote jupyter server, you need to set up the jupyter server with some extra settings:
+
+```
+bp-login $ lbatch --hours 8 -a project_code --port ${port} --cmd "jupyter notebook --no-browser --port ${port} --NotebookApp.allow_origin='*' --NotebookApp.ip='0.0.0.0'"
+```
+
+Then from a remote session in VSCode (i.e. connected to one of the login nodes), follow the instructions [here](https://code.visualstudio.com/docs/datascience/jupyter-kernel-management#_existing-jupyter-server) making sure to use the url from `slurm-JOBID.out` that contains the compute node address (e.g. `http://bp1-compute001:8893/?token=TOKENSTRING`) 
+
 ## Option 2: Interactive job
 
 This way is more typing and you will want to use something like screen or tmux to keep the jupyter process running in case you lose network connection. The advantage of being interactive is the live feedback from the commands so you'll know immediately when you have a compute node and when Jupyter is running.

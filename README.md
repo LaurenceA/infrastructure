@@ -114,6 +114,8 @@ If you don't want that, there are other approaches such as `sshfs` which loads a
 * Select `Remote-SSH: Connect to Host...` from the VSCode Command Palette, then enter user@bp1-login.acrc.bris.ac.uk.
 * Local extensions will not be available on the remote initialisation. Remote and local settings can be synced. Solutions to this and further information on all of the above with FAQ and troubleshooting are detailed in the VS Code [documentation](https://code.visualstudio.com/docs/remote/ssh).
 
+Note that you can also access Jupyter notebooks on VSCode, which provides useful things like syntax checking, debugging and other useful code tools inside notebooks. To do more intensive jupyter notebook things in this way, you can connect to a remote jupyter server (i.e. on a compute node), see [Running Jupyter in Blue Pebble](instructions/jupyter-on-blue-pebble.md)
+
 ## Pushing/pulling to GitHub without a password:
 * Generate a "Personal Access Token" with repo permissions + no expiration (you can always delete the token manually through the web interface): (https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
 * Use that token in place of a password, e.g.
