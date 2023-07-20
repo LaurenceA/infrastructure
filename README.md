@@ -185,3 +185,7 @@ module add lang/cuda/11.6
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/nvidia
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(conda info --envs | grep '*' | awk '{print $3}')/lib
 ```
+## Getting Laurence's external keyboard to behave like the Apple keyboard.
+
+In the keyboard setup wizard, when it asks for the "key immediately to the right of the left shift", instead press the key in top-right, just underneath escape.  The keyboard type should be the default (ISO).  If you need to rerun the keyboard setup wizard, first delete `/Library/Preferences/com.apple.keyboardtype.plist`, then reboot.
+/Library/Preferences/com.apple.keyboardtype.plist
