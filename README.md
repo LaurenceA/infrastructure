@@ -189,3 +189,7 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(conda info --envs | grep '*' | awk '{p
 
 In the keyboard setup wizard, when it asks for the "key immediately to the right of the left shift", instead press the key in top-right, just underneath escape.  The keyboard type should be the default (ISO).  If you need to rerun the keyboard setup wizard, first delete `/Library/Preferences/com.apple.keyboardtype.plist`, then reboot.
 /Library/Preferences/com.apple.keyboardtype.plist
+
+## Associate status mailbox
+
+`honorary-associate-enquiries@bristol.ac.uk`
