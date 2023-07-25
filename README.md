@@ -133,6 +133,14 @@ You can browse available modules through `module avail`, and install a module th
 
 If you want to install a module by default, use `~/.bashrc`, _not_ `~/.bash_profile`.  (It seems that `.bashrc` is run on interactive jobs, but `.bash_profile` isn't).
 
+## Viewing queued jobs
+SLURM comes with a built-in command to view the queue of jobs: `squeue`.
+Some useful parameters for this:
+- `--me`: Only show the current user's jobs
+- `-t, --states=<state_list>`: Only show jobs of certain states. States include `pending`, `running` and `completing`. For example `squeue -t running` will only show running jobs.
+
+Full documentation is [here](https://slurm.schedmd.com/squeue.html).
+
 ## Uploading to arXiv
 
 * Check that there aren't any wrong / soon-to-be-outdated notes from the template in the compiled pdf (e.g. "Published in <conference>" or "Preprint; under review at <conference>").  You can remove these relatively easily by editting the style file (just search for the offending string).  To avoid confusion later, you should do these edits in a new style file, e.g. `<conference>_arxiv.sty`.
