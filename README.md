@@ -192,4 +192,6 @@ In the keyboard setup wizard, when it asks for the "key immediately to the right
 
 ## Associate status mailbox
 
+`engf-honstaff@bristol.ac.uk`
+
 `honorary-associate-enquiries@bristol.ac.uk`
