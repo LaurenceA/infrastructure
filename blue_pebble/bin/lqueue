@@ -1,4 +1,0 @@
-#!/bin/sh
-
-cmd="lscript $@ | $(lcmd $@)"
-eval $cmd
