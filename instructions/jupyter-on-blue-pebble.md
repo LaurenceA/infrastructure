@@ -32,12 +32,20 @@ Don't forget to cancel any batch or interactive jobs and stop any processes on t
 ```
 bp-login $ port=<<<PORT>>>
 bp-login $ cd my/directory/of/notebooks
-bp-login $ lbatch --hours 8 --port ${port} --cmd "jupyter notebook --no-browser --port ${port}"
+bp-login $ lbatch --hours 8 -a PROJECT_CODE --port ${port} --cmd "jupyter notebook --no-browser --port ${port}"
 ```
 
 Once the job starts running on the cluster, a file called `slurm-JOBID.out` will include the output for the jupyter command including the server logs so check it to determine when the Jupyter server is up and running.
 
 Don't forget to cancel the job once you've finished.
+
+If you want to connect a jupyter notebook in VSCode to a remote jupyter server, you need to set up the jupyter server with some extra settings:
+
+```
+bp-login $ lbatch --hours 8 -a PROJECT_CODE --port ${port} --cmd "jupyter notebook --no-browser --port ${port} --NotebookApp.allow_origin='*' --NotebookApp.ip='0.0.0.0'"
+```
+
+Then from a remote session in VSCode (i.e. connected to one of the login nodes), follow the instructions [here](https://code.visualstudio.com/docs/datascience/jupyter-kernel-management#_existing-jupyter-server) making sure to use the url from `slurm-JOBID.out` that contains the compute node address (e.g. `http://bp1-compute001:8893/?token=TOKENSTRING`) 
 
 ## Option 2: Interactive job
 
