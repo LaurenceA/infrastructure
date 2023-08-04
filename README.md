@@ -87,6 +87,11 @@ The time limits for various queues are:
 * gpu: 72 hours
 * gpushort: 3 hours
 
+## Seeing your queued jobs
+You can use `sacct` to get an overview of all jobs you have run / queued today, including which are queued, running, completed, or failed.
+
+You can also use `squeue -u <username>`, but it won't show you completed / failed jobs.
+
 ## Deleting all your jobs
 Use `lsub` above, then you can just Ctrl-C your unwanted jobs.
 
