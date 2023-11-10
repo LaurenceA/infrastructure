@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Your username
+USERNAME=$(whoami)
+
+# Release all held jobs for your username
+squeue -u $USERNAME -t PD --format="%i" | awk '{print "scontrol release " $1}' | sh
+
