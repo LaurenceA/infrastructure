@@ -14,6 +14,7 @@ parser.add_argument('--account', '-a',   type=str, nargs='?',             help="
 parser.add_argument('--queue',   '-q',   type=str, nargs='?',             help="queue")
 parser.add_argument('--gputype',         type=str, nargs='*', choices=gpu_choices, help="Could be {rtx_2080, rtx_3090, A100}, can give a space-separated list --gputype rtx_2080 rtx_3090")
 parser.add_argument('--exclude_40G_A100', action='store_true', help="Scheduler doesn't know the difference between the 40G and 80G A100s, but some code will only run on the 80G cards")
+parser.add_argument('--exclude_node', type=str, nargs='?')
 
 # remove args after --cmd, if present
 if "--cmd" in sys.argv:
@@ -57,5 +58,8 @@ if args.gpus is not None:
 
 if args.exclude_40G_A100:
     cmd = cmd + " --exclude=bp1-gpu031,bp1-gpu032"
+
+if args.exclude_node is not None:
+    cmd = cmd + f" --exclude={args.exclude_node}"
 
 print(cmd + " ")
