@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Check if the job ID is provided
+if [ -z "$1" ]; then
+  echo "Please provide a job ID."
+  exit 1
+fi
+
+# Your username
+USERNAME=$(whoami)
+
+# Hold all pending jobs including and before the inputted job ID
+squeue -u $USERNAME -t PD --format="%i" | awk -v jobID="$1" '$1 <= jobID {print "scontrol hold " $1}' | sh
+
