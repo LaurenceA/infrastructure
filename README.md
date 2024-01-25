@@ -155,56 +155,6 @@ Full documentation is [here](https://slurm.schedmd.com/squeue.html).
 * Download a zip from Overleaf (Submit -> ArXiv).  MacOS, may automatically unzip the file, in which case you have to zip it again (Finder -> Right click on folder -> Compress "<filename>").
 * You can upload the entire zip to arXiv.
 
-## Install bitsandbytes on BluePebble
-  
-Adam had some difficulties in installing [bitsandbytes](https://github.com/TimDettmers/bitsandbytes) on the cluster.  Here is the instructions he followed, as of 9th June 2023 (I expect this to go out of date quite quickly). He installed it in an interactive job on GPU node, but it should also work on login node.
-
-bitsandbytes has trouble working on systems with multiple cuda installed, so we need to install from source and specify the version of cuda, and we need to load modules and export paths on BluePebble
-
-1. create conda envs and install packages as usual, activate conda env, load modules and export paths, which are necessary for installation from source (maybe some paths are redundant?)
-
-```
-module add lang/cuda/11.6
-module add lang/cuda/12.0.0-gcc-9.1.0
-module load tools/git/2.35.1
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/nvidia
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(conda info --envs | grep '*' | awk '{print $3}')/lib
-```
-For instance, if you had anaconda installed in `/user/work/<username>/anaconda3/` that final command would expand to:
-```
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/user/work/<username>/anaconda3/envs/llm/lib/
-```
-  
-2. clone bitsandbytes from source, and go into the source directory:
-
-```
-git clone https://github.com/timdettmers/bitsandbytes.git
-cd bitsandbytes
-```
-  
-3. Modify the Makefile in the bitsandbytes repo, by changing 'GPP:= /usr/bin/g++' to 'GPP:= g++'.  This can be done automatically using:
-```
-sed -i "s/^GPP.*/GPP := g++/" bitsandbytes/Makefile
-```
-
-4. install bitsandbytes
-
-```
-CUDA_VERSION=116 make cuda11x
-python setup.py install
-```
-  
-5. Every time before running we need to load cuda module and export paths
-```
-module add lang/cuda/11.6
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/nvidia
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(conda info --envs | grep '*' | awk '{print $3}')/lib
-```
-## Getting Laurence's external keyboard to behave like the Apple keyboard.
-
-In the keyboard setup wizard, when it asks for the "key immediately to the right of the left shift", instead press the key in top-right, just underneath escape.  The keyboard type should be the default (ISO).  If you need to rerun the keyboard setup wizard, first delete `/Library/Preferences/com.apple.keyboardtype.plist`, then reboot.
-/Library/Preferences/com.apple.keyboardtype.plist
-
 ## Associate status mailbox
 
 `engf-honstaff@bristol.ac.uk`
