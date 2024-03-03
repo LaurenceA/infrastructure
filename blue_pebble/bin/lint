@@ -1,3 +1,4 @@
 #!/bin/sh
-cmd="srun $(lcmd $@) --pty bash -i"
+set -e
+cmd="srun $(lcmd --interactive $@) --pty bash -i"
 eval $cmd

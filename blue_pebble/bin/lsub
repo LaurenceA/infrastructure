@@ -1,4 +1,4 @@
 #!/bin/sh
-
+set -e
 cmd="lscript $@ | sbatch -W $(lcmd $@)"
 eval $cmd

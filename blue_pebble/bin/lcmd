@@ -15,6 +15,7 @@ parser.add_argument('--queue',   '-q',   type=str, nargs='?',             help="
 parser.add_argument('--gputype',         type=str, nargs='*', choices=gpu_choices, help="Could be {rtx_2080, rtx_3090, A100}, can give a space-separated list --gputype rtx_2080 rtx_3090")
 parser.add_argument('--exclude_40G_A100', action='store_true', help="Scheduler doesn't know the difference between the 40G and 80G A100s, but some code will only run on the 80G cards")
 parser.add_argument('--exclude_node', type=str, nargs='?')
+parser.add_argument('--interactive', action='store_true', help="Not used by the user, used internally to error when lint is called with a --cmd argument")
 
 # remove args after --cmd, if present
 if "--cmd" in sys.argv:
@@ -23,6 +24,8 @@ if "--cmd" in sys.argv:
     #If we have --cmd, then we're being called by lcmd/lrun, with lscript and there may be extra command
     #line arguments that only lscript knows how to parse.
     args,_ = parser.parse_known_args(arglist)
+    if args.interactive:
+        raise Exception("lint was passed a --cmd, but it cannot take a cmd")
 else:
     arglist = sys.argv[1:]
     #If we don't have --cmd, then we're being called by lint (with no lscript), so we should know
