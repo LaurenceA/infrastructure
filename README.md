@@ -155,6 +155,23 @@ Full documentation is [here](https://slurm.schedmd.com/squeue.html).
 * Download a zip from Overleaf (Submit -> ArXiv).  MacOS, may automatically unzip the file, in which case you have to zip it again (Finder -> Right click on folder -> Compress "<filename>").
 * You can upload the entire zip to arXiv.
 
+
+## Subtleties when using PEFT and gradient checkpointing
+
+When using the huggingface libraries to train LLMs it pays to be careful when using PEFT with gradient checkpointing because of the way PEFT freezes parameters. If you try to call ``model.gradient_checkpointing_enable()`` AFTER you call ``model = get_peft_model(model, lora_config)`` then a piece of code that activates gradients on the inputs won't be called and you'll get the following errors:
+
+```
+UserWarning: None of the inputs have requires_grad=True. Gradients will be None
+```
+or
+```
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+```
+
+The UserWarning is especially tricky because it doesn't stop the code from running and it's easy to miss at the top of the output.
+
+To avoid this, make sure you call ``model.gradient_checkpointing_enable()`` BEFORE you call ``model = get_peft_model(model, lora_config)``.
+
 ## Associate status mailbox
 
 `engf-honstaff@bristol.ac.uk`
