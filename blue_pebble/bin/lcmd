@@ -46,7 +46,7 @@ if args.account is not None:
     cmd = cmd + f" --account={args.account}"
 
 if args.queue is not None:
-    cmd = cmd + f" --partition {args.queue}"
+    cmd = cmd + f" --partition={args.queue}"
 
 if args.gpus is not None:
     if args.gputype is None:

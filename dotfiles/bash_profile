@@ -16,5 +16,4 @@ fi
 #export DKM_DATA_PATH="/user/work/ei19760/dkm_data"
 #export TRANSFORMERS_CACHE="/user/work/ei19760/hf_cache"
 #
-module add lang/gcc/9.3.0
 #
