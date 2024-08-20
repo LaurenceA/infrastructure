@@ -1,4 +1,4 @@
 #!/bin/sh
 set -e
-cmd="srun $(lcmd --interactive $@) --pty bash -i"
+cmd="srun $(lcmd --interactive $@) --mpi=pmi2 --pty bash -i"
 eval $cmd
