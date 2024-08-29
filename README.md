@@ -172,6 +172,17 @@ The UserWarning is especially tricky because it doesn't stop the code from runni
 
 To avoid this, make sure you call ``model.gradient_checkpointing_enable()`` BEFORE you call ``model = get_peft_model(model, lora_config)``.
 
+## Getting bitsandbytes working on BluePebble
+
+If you try to install bitsandbytes on a login node and then use it in a piece of code called with sbatch you will get the following error:
+
+```
+The installed version of bitsandbytes was compiled without GPU support. 8-bit optimizers, 8-bit multiplication, and GPU quantization are unavailable.
+```
+
+To fix this uninstall the current installation of bitsandbytes, start an interactive job, and install it in the interactive job.
+
+
 ## Associate status mailbox
 
 `engf-honstaff@bristol.ac.uk`
