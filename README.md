@@ -155,6 +155,7 @@ Full documentation is [here](https://slurm.schedmd.com/squeue.html).
 * Download a zip from Overleaf (Submit -> ArXiv).  MacOS, may automatically unzip the file, in which case you have to zip it again (Finder -> Right click on folder -> Compress "<filename>").
 * You can upload the entire zip to arXiv.
 
+# Tips and Tricks for working with huggingface for LLMs
 
 ## Subtleties when using PEFT and gradient checkpointing
 
@@ -182,6 +183,9 @@ The installed version of bitsandbytes was compiled without GPU support. 8-bit op
 
 To fix this uninstall the current installation of bitsandbytes, start an interactive job, and install it in the interactive job.
 
+## Using Peft with quantisation
+
+[Make sure to read this if you want to use a LORA adapter alongside quantisation](https://github.com/huggingface/peft/blob/main/docs/source/developer_guides/quantization.md)
 
 ## Associate status mailbox
 
