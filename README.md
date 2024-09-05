@@ -192,3 +192,7 @@ To fix this uninstall the current installation of bitsandbytes, start an interac
 `engf-honstaff@bristol.ac.uk`
 
 `honorary-associate-enquiries@bristol.ac.uk`
+
+## Gatsby courses
+
+https://www.gatsby.ucl.ac.uk/teaching/courses/
