@@ -58,7 +58,7 @@ lint -c 1 -g 1 -m 22 -t 12 -a hpc_project_code -q queue_name --gputype rtx_2080 
 We have 40 and 80 GB A100's, but the schduler can't tell the difference.  To exclude the 40 GB cards, use `--exclude_40G_A100`
 
 To make full use of all the GPUs on a system, it is recommended that you only use the following system memory/CPUs per GPU:
-| Card | card memory | nodes | GPUs per node | system memory per GPU | CPUs per GPU |
+| Card | card memory | GPUs per node | nodes | system memory per GPU | CPUs per GPU |
 | ---- | ----------- | ----- | ------------- | --------------------- | ------------ |
 | `rtx_2080` | 11 | 4 | 4 | 22 | 2 |
 | `rtx_3090` | 24 | 8 | 1  | 62 | 2 |
