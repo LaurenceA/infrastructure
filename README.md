@@ -156,6 +156,29 @@ Full documentation is [here](https://slurm.schedmd.com/squeue.html).
 * Download a zip from Overleaf (Submit -> ArXiv).  MacOS, may automatically unzip the file, in which case you have to zip it again (Finder -> Right click on folder -> Compress "<filename>").
 * You can upload the entire zip to arXiv.
 
+# Experimenting with nanoGPT/modded-nanoGPT on a single GPU                               
+                                                                                
+These repos are set up by default to run on a node with general GPUs, but it is helpful to be able to train GPT2 on a single GPU for quick experiments.
+                                                                                
+### KellerJordan/modded-nanoGPT                                                 
+                                                                                
+In `run.sh`, set `--nproc_per_node=1`. Even if you don't do this, you should get an error telling you to do so.
+                                                                                
+### karpathy/nanoGPT                                                            
+                                                                                
+To run on a single GPU in the original nanoGPT repo, you can do something similar
+                                                                                
+```                                                                             
+## don't use this suggested command!                                            
+torchrun --standalone --nproc_per_node=8 train.py config/train_gpt2.py          
+                                                                                
+## do one of these instead                                                      
+python train.py config/train_gpt2.py                        
+torchrun --standalone --nproc_per_node=1 train.py config/train_gpt2.py
+```                                                                             
+                                                                                
+You may also want to use wikitext-103 for experiments rather than openwebtext, since the latter is very slow to preprocess. An easy way to do this is to give `./data/openwebtext/prepare.py` to claude and ask it to modify for wikitext. Optionally, you can create a new config for wikitext by copying and amending the openwebtext config.
+
 # Tips and Tricks for working with huggingface for LLMs
 
 ## Subtleties when using PEFT and gradient checkpointing
