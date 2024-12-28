@@ -220,3 +220,14 @@ To fix this uninstall the current installation of bitsandbytes, start an interac
 ## Gatsby courses
 
 https://www.gatsby.ucl.ac.uk/teaching/courses/
+
+## How to set up Python in general
+
+There are two options:
+* Install Anaconda Python.
+* Use pre-installed Python.
+
+Previously, I have installed Anaconda Python.  I am currently moving to using the pre-installed Python.  The primary problem with pre-installed Python is that you end up making a huge mess with package installs.  The solution is the `PIP_REQUIRE_VIRTUALENV`; i.e. put this in your zshrc / bashrc / bashprofile (as appropriate).
+```
+export PIP_REQUIRE_VIRTUALENV=1
+```
