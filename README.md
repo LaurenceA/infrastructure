@@ -231,3 +231,10 @@ Previously, I have installed Anaconda Python.  I am currently moving to using th
 ```
 export PIP_REQUIRE_VIRTUALENV=1
 ```
+
+## Isambard AI resources
+
+[Isambard AI Docs](https://docs.isambard.ac.uk)
+
+[Isambard AI Specs](https://docs.isambard.ac.uk/specs/) (Basically, they are 4 * H100 nodes, but with 96 rather than 80 GB of VRAM, and with an absurdly huge number of CPUs (288).
+
