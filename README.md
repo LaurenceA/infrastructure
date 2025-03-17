@@ -152,7 +152,7 @@ Full documentation is [here](https://slurm.schedmd.com/squeue.html).
 ## Uploading to arXiv
 
 * Check that there aren't any wrong / soon-to-be-outdated notes from the template in the compiled pdf (e.g. "Published in <conference>" or "Preprint; under review at <conference>").  You can remove these relatively easily by editting the style file (just search for the offending string).  To avoid confusion later, you should do these edits in a new style file, e.g. `<conference>_arxiv.sty`.
-* Check there aren't any extra files or embarassing comments in the Overleaf.
+* Check there aren't any extra files or embarassing comments in the .tex files.
 * Download a zip from Overleaf (Submit -> ArXiv).  MacOS, may automatically unzip the file, in which case you have to zip it again (Finder -> Right click on folder -> Compress "<filename>").
 * You can upload the entire zip to arXiv.
 
