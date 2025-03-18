@@ -20,9 +20,6 @@ export PATH="$PATH:${HOME}/infrastructure/blue_pebble/bin"
 #A nicer prompt
 export PS1="\w $ "
 
-#Alias for vim
-alias vim=vi
-
 #Alias for measuring the size of a directory without following symlinks
 alias dirsize='du -sPh'
 
@@ -43,9 +40,9 @@ module add languages/python/3.12.3
 #is going to be sufficient in 99% of the cases.
 
 # The venv directory
-alias venv_dir='echo "$WORK/venvs/$(basename "$(pwd)")"'
-# Create a new virtual environment 
-alias init_venv='python -m venv $(venv_dir)'
+venv_dir() { echo "$WORK/venvs/$(basename "$(pwd)")"; }
+# Create a new virtual environment
+venv_init() { python -m venv "$(venv_dir)"; }
 # Activate the virtual environment
-alias activate_venv='source $(venv_dir)/bin/activate'
+venv_activate() { source "$(venv_dir)/bin/activate"; }
 

@@ -16,7 +16,7 @@ parser.add_argument('--name',    '-n', type=str, nargs='?',             help="ma
 parser.add_argument('--account', '-a', type=str, nargs='?',             help="hpc project code")
 parser.add_argument('--queue',   '-q', type=str, nargs='?',             help="queue")
 parser.add_argument('--gputype',       type=str, nargs='*')
-parser.add_argument('--venv',          type=str, nargs='?',             help='path to virtual env. ')  
+parser.add_argument('--venv',          type=str, nargs='?', default="", help='path to virtual env. ')  
 parser.add_argument('--conda-env',     type=str, nargs='?',             help='Name of conda environment to use. If --venv is also specified then venv will be used.')
 parser.add_argument('--array-range',   type=str, nargs='?',             help='Array range for array job, as a string; e.g. 1-10 or comma seperated list of values. You must also replace an input arg with ARRAY_ID for this to work.', default=None)
 parser.add_argument('--port',          type=str, nargs='*',             help="ports to open ssh tunnels back to login nodes")
@@ -33,7 +33,8 @@ args = parser.parse_args(args)
 
 cmd = ' '.join(sys.argv[(1+cmd_idx):])
 
-print(f"#!/bin/sh",)
+print("#!/bin/bash")
+print("source ~/.bashrc")
 
 array_id=''
 if args.array_range is not None:
@@ -64,8 +65,15 @@ if args.port:
         for port in args.port:
             print(f"/usr/bin/ssh -N -f -R {port}:localhost:{port} bp1-login0{i}.data.bp.acrc.priv")
 
-if args.venv is not None:
+
+if args.venv is None:
+    #--venv with no virtualenv path
+    print('venv_activate')
+elif args.venv:
+    #Catehces args.venv is a non-empth string
+    #--venv venv_path
     print(f'source {args.venv}/bin/activate')
+
 elif args.conda_env is not None:
     # Find conda path
     conda_path = Path(subprocess.run(['which', 'conda'], capture_output=True, encoding='utf-8').stdout)
