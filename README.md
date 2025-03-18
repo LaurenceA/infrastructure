@@ -23,13 +23,14 @@ cd path_to_project/project_name
 python -m venv venv
 source venv/bin/activate
 ```
-However, these venvs can be huge installing stuff like PyTorch, so we can again end up running out of space in $HOME. So this .bashrc provides commands to make it easy to install venvs to work directory.  Specifically:
+Then you can pip install as usual.  Though I'd recommend writing a `requirements.txt` file and using `pip install -r requirements.txt`.
+However, these venvs can be huge in machine learning projects, so we can again end up running out of space in $HOME. So this .bashrc provides commands to make it easy to install venvs to work directory.  Specifically instead of the above, you can use:
 ```
 cd path_to_project/project_name
 venv_init
 venv_activate
 ```
-Using these commands, the venv is created at `$WORK/venvs/project_name`.  Note that the venv name is based on the directory name.  So it does raise the risk of clashes if you have two projects in different places, but with the same directory name.
+Using these commands, a venv is created at `$WORK/venvs/project_name`.  Note that the venv name is based on the directory name.  So it does raise the risk of clashes if you have two projects in different places.  Or it means that it won't find the venv if you move the project to a directory with a different name.
 
 Fourth, the .bashrc provides a default queue and hpc_project_code for the job submission scripts below.
 
