@@ -2,9 +2,34 @@
 
 ## Getting started (for new lab members)
 
-Clone this repo into your home directory.
+Clone this repo into your home directory:
+```
+git clone https://github.com/LaurenceA/infrastructure.git
+```
 
-Move `~/infrastructure/dotfiles/bashrc` into `~/.bashrc`.
+Move the default bashrc to `~/.bashrc`
+```
+cp ~/infrastructure/dotfiles/bashrc ~/.bashrc
+```
+This does a few things.
+
+First, we have two places to keep files $HOME and $WORK. $HOME is backed up, but is super constrained (about 20 GB). $WORK is much bigger but not backed up. So, this `.bashrc` sets up caches to live in $WORK by default.
+
+Second, it is super-easy to make a gigantic mess when installing stuff in Python.  To fix that, this .bashrc actually bans you from installing packages globally.  So you can only install packages in a venv.  The usual approaches is to navigate to your project directory and use:
+```
+cd path_to_project/project_name
+python -m venv venv
+source venv/bin/activate
+```
+However, these venvs can be huge installing stuff like PyTorch, so we hit the same problem as above.  So this .bashrc provides commands so you can do:
+```
+cd path_to_project/project_name
+venv_init
+venv_activate
+```
+Using these commands, the venv is created at `$WORK/venvs/project_name`.  This does raise the risk of name clashes, so be aware!
+
+Third, the .bashrc provides a default queue and hpc_project_code for the job submission scripts below.
 
 ## Running jobs in Blue Pebble
 
