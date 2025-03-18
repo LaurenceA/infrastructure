@@ -65,4 +65,3 @@ map <C-l> <C-W>l
 ":nmap <Leader>v :LatexView<CR>
 
 syntax enable
-:set background=dark

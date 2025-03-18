@@ -4,16 +4,3 @@
 if [ -f ~/.bashrc ]; then
 	. ~/.bashrc
 fi
-
-# User specific environment and startup programs
-
-#export PATH=$PATH:$HOME/.local/bin:$HOME/bin
-#export PATH="$PATH:/user/home/ei19760/git/infrastructure/blue_pebble/bin"
-#export PATH="/user/home/ei19760/programs/anaconda3/bin:$PATH"
-#export TERMINFO=/usr/share/terminfo
-#alias vim=vi
-#export PS1="\w $ "
-#export DKM_DATA_PATH="/user/work/ei19760/dkm_data"
-#export TRANSFORMERS_CACHE="/user/work/ei19760/hf_cache"
-#
-#
