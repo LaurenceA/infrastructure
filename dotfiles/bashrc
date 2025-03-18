@@ -12,6 +12,9 @@ export HOME="/user/home/${USER}"
 #Default project code
 export HPC_PROJECT_CODE="COSC020762"
 
+#Default queue
+export DEFAULT_QUEUE="cnu"
+
 #Scripts for submitting jobs in the infrastructure repo (assuming you've cloned to this location)
 export PATH="$PATH:${HOME}/infrastructure/blue_pebble/bin"
 

@@ -1,3 +1,0 @@
-#!/bin/sh
-
-ln -sfni $HOME/git/infrastructure/blue_pebble/profile $HOME/.profile

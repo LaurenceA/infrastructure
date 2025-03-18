@@ -64,8 +64,6 @@ if args.port:
         for port in args.port:
             print(f"/usr/bin/ssh -N -f -R {port}:localhost:{port} bp1-login0{i}.data.bp.acrc.priv")
 
-print('module add lib/hdf5/1.10.6-gcc')
-
 if args.venv is not None:
     print(f'source {args.venv}/bin/activate')
 elif args.conda_env is not None:

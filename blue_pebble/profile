@@ -1,9 +1,0 @@
-export PS1="\w $ "
-
-#module add lang/python/anaconda/pytorch
-module add lang/julia
-module add lib/hdf5/1.10.6-gcc
-module add tools/git/2.22.0
-
-export PATH=$PATH:$HOME/git/infrastructure/blue_pebble/bin/
-export PATH="/home/ei19760/programs/anaconda3/bin:$PATH"

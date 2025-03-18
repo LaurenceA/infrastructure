@@ -2,6 +2,7 @@
 
 import sys
 import argparse
+import os
 
 gpu_choices = ["A100", "rtx_3090", "rtx_2080"]
 parser = argparse.ArgumentParser()
@@ -42,11 +43,19 @@ cmd = cmd + f" --cpus-per-task={args.cpus}"
 if args.memory is not None:
     cmd = cmd + f" --mem={args.memory}G"
 
+#Use command line argument if provided; otherwise default to environment variable if present
 if args.account is not None:
     cmd = cmd + f" --account={args.account}"
+else:
+    if 'HPC_PROJECT_CODE' in os.environ:
+        cmd = cmd + f" --account={os.environ['HPC_PROJECT_CODE']}"
 
+#Use command line argument if provided; otherwise default to environment variable if present
 if args.queue is not None:
     cmd = cmd + f" --partition={args.queue}"
+else:
+    if 'DEFAULT_QUEUE' in os.environ:
+        cmd = cmd + f" --partition={os.environ['DEFAULT_QUEUE']}"
 
 if args.gpus is not None:
     if args.gputype is None:
