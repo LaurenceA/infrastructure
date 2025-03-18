@@ -42,8 +42,10 @@ module add languages/python/3.12.3
 #the name of the current directory.  This is obviously a bit flakey.  But
 #is going to be sufficient in 99% of the cases.
 
-#Set up the virtual environment:
-alias venv_init='python -m venv $WORK/venvs/$(basename "$(pwd)")'
-#Activate it:
-alias venv_activate='source $WORK/venvs/$(basename "$(pwd)")/bin/activate'
+# The venv directory
+alias venv_dir='echo "$WORK/venvs/$(basename "$(pwd)")"'
+# Create a new virtual environment 
+alias init_venv='python -m venv $(venv_dir)'
+# Activate the virtual environment
+alias activate_venv='source $(venv_dir)/bin/activate'
 
