@@ -1,6 +1,12 @@
 # infrastructure
 
-# Running jobs in Blue Pebble
+## Getting started (for new lab members)
+
+Clone this repo into your home directory.
+
+Move `~/infrastructure/dotfiles/bashrc` into `~/.bashrc`.
+
+## Running jobs in Blue Pebble
 
 Making a job script for each run is extremely tedious.  The files in `blue_pebble/bin` automate this.  To use these, you need to first download this repo (I downloaded it to `~/git/infrastructure`), then add `blue_pebble/bin` to the path.  You need to add:
 ```
