@@ -65,6 +65,19 @@ To make full use of all the GPUs on a system, it is recommended that you only us
 | `A100` | 40 | 2 | 4 | 124 | 16 |
 | `A100` | 80 | 2 | 4 | 124 | 16 |
 
+## Assessing cluster resource usage:
+
+To look at resource allocation on a fine-grained basis,
+```
+scontrol show nodes
+```
+Then look at the 
+```
+CfgTRES=cpu=64,mem=490000M,billing=64,gres/gpu=3
+AllocTRES=cpu=34,mem=176G,gres/gpu=3
+```
+lines.
+
 # Notes
 
 ## Logging in to Blue Pebble
