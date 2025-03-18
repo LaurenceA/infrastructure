@@ -62,7 +62,7 @@ lbatch -c 1 -g 1 -m 22 -a hpc_project_code -q queue_name --autoname --cmd python
 and produces logs with the name: `output_filename.o`, which tends to be much more helpful for working out which log-file
 belongs to which job.  This may require you to use `print('...', flush=True)`, to make sure that the printed output isn't buffered.
 
-There is a `--venv` command line argument for specifying the Python virtual environment to activate on the remote node (which tends to be quite difficult if it isn't hard-coded). Or alternatively you can specify the name of a conda environment with `--conda-env`.
+There is a `--venv` command line argument for specifying the Python virtual environment to activate on the remote node.  If no argument is provided, it calls `venv_activate`.  Otherwise, it activates the provided directory. Or alternatively you can specify the name of a conda environment with `--conda-env`.
 
 To specify your HPC project code use the `-a` option. Jobs submitted on Blue Pebble will not run without a project code. To get a your project code, ask your PI.  Additionally, accounts can only run with certain project codes.  To see what project code(s) are associated with your account, use 
 ```
