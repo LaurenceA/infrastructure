@@ -1,0 +1,34 @@
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+        . /etc/bashrc
+fi
+
+#An environment variables for the home and work directories
+export WORK="/user/work/${USER}"
+export HOME="/user/home/${USER}"
+
+#Default project code
+export HPC_PROJECT_CODE="COSC020762"
+
+#Scripts for submitting jobs in the infrastructure repo (assuming you've cloned to this location)
+export PATH="$PATH:${HOME}/infrastructure/blue_pebble/bin"
+
+#A nicer prompt
+export PS1="\w $ "
+
+#Alias for vim
+alias vim=vi
+
+#Transformers cache in the work directory
+export TRANSFORMERS_CACHE="${WORK}/hf_cache"
+
+#Pip cache in the work directory
+export PIP_CACHE_DIR="${WORK}/pip_cache"
+
+#Force Pip to use virtualenvs for all installs
+export PIP_REQUIRE_VIRTUALENV=1
+
+#Use a reasonably up-to-date Python (use module spider languages/python to see what versions are available)
+module add languages/python/3.12.3
