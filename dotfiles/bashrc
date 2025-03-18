@@ -26,7 +26,8 @@ alias vim=vi
 #Alias for measuring the size of a directory without following symlinks
 alias dirsize='du -sPh'
 
-#All caches, including Pip, HF etc. in the work directory
+#Home directory doesn't have much space, so all all caches, including Pip, 
+#HF etc. in the work directory.
 export XDG_CACHE_HOME="${WORK}/.cache"
 
 #Force Pip to use virtualenvs for all installs
@@ -34,4 +35,15 @@ export PIP_REQUIRE_VIRTUALENV=1
 
 #Reasonably recent version of Python
 module add languages/python/3.12.3
+
+#Pip virtual environments can get huge.  So we define a couple of commands
+#to make it easy to put them in the $WORK/venvs directory.
+#Specifically, the venv is setup in $WORK/venvs/dirname, where dirname is
+#the name of the current directory.  This is obviously a bit flakey.  But
+#is going to be sufficient in 99% of the cases.
+
+#Set up the virtual environment:
+alias venv_init='python -m venv $WORK/venvs/$(basename "$(pwd)")'
+#Activate it:
+alias venv_activate='source $WORK/venvs/$(basename "$(pwd)")/bin/activate'
 
