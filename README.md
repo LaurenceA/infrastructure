@@ -11,11 +11,13 @@ Move the default bashrc to `~/.bashrc`
 ```
 cp ~/infrastructure/dotfiles/bashrc ~/.bashrc
 ```
-This does a few things.
+and log out then log back in. This does a few things.
 
-First, we have two places to keep files $HOME and $WORK. $HOME is backed up, but is super constrained (about 20 GB). $WORK is much bigger but not backed up. So, this `.bashrc` sets up caches to live in $WORK by default.
+First, it provides the job submission helper scripts described below.
 
-Second, it is super-easy to make a gigantic mess when installing stuff in Python.  To fix that, this .bashrc actually bans you from installing packages globally.  So you can only install packages in a venv.  The usual approaches is to navigate to your project directory and use:
+Second, we have two places to keep files $HOME and $WORK. $HOME is backed up, but is super constrained (about 20 GB). $WORK is much bigger but not backed up. So, this `.bashrc` sets up caches to live in $WORK by default.
+
+Third, it is super-easy to make a gigantic mess when installing stuff in Python.  To fix that, this .bashrc actually bans you from installing packages globally.  So you can only install packages in a venv.  The usual approaches is to navigate to your project directory and use:
 ```
 cd path_to_project/project_name
 python -m venv venv
@@ -29,7 +31,7 @@ venv_activate
 ```
 Using these commands, the venv is created at `$WORK/venvs/project_name`.  This does raise the risk of name clashes, so be aware!
 
-Third, the .bashrc provides a default queue and hpc_project_code for the job submission scripts below.
+Fourth, the .bashrc provides a default queue and hpc_project_code for the job submission scripts below.
 
 ## Running jobs in Blue Pebble
 
