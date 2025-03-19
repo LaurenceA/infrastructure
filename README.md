@@ -138,14 +138,14 @@ The time limits for various queues are:
 ## Seeing your queued jobs
 You can use `sacct` to get an overview of all jobs you have run / queued today, including which are queued, running, completed, or failed.
 
-You can also use `squeue -u <username>`, but it won't show you completed / failed jobs.
+You can also use `squeue --me`, but it won't show you completed / failed jobs.
 
 ## Deleting all your jobs
 Use `lsub` above, then you can just Ctrl-C your unwanted jobs.
 
 Otherwise:
 ```
-scancel -u ei19760
+scancel --me
 ```
 
 ## Transfering data
