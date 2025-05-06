@@ -285,3 +285,5 @@ export PIP_REQUIRE_VIRTUALENV=1
 
 [Isambard AI Specs](https://docs.isambard.ac.uk/specs/) (Basically, they are 4 * H100 nodes, but with 96 rather than 80 GB of VRAM, and with an absurdly huge number of CPUs (288).
 
+Singularity containers work pretty well out of the box on Isambard. Here are some [rough notes](https://gist.github.com/lippirk/47256bc7cba7228826b1ca4ab088f46b) on a workflow for getting distributed training working on Isambard using Singularity.
+
