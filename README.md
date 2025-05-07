@@ -287,3 +287,11 @@ export PIP_REQUIRE_VIRTUALENV=1
 
 Singularity containers work pretty well out of the box on Isambard. Here are some [rough notes](https://gist.github.com/lippirk/47256bc7cba7228826b1ca4ab088f46b) on a workflow for getting distributed training working on Isambard using Singularity.
 
+Alternatively, you can take advantage of uv's ability to automatically select the appropriate PyTorch index by inspecting the system configuration.
+Once [you have installed uv](https://docs.astral.sh/uv/#installation), [enable experimental features](https://docs.astral.sh/uv/reference/settings/#preview) by adding `preview = true` to pyproject.toml under `[tool.uv]`.
+Then, you can [automatically select the best index](https://docs.astral.sh/uv/guides/integration/pytorch/#the-uv-pip-interface) compatible with the CUDA driver version in your environment like so:
+```sh
+$ UV_TORCH_BACKEND=auto uv pip install torch
+```
+At the time of writing, that installs torch 2.6.0+cu126 on Isambard-AI.
+But it's an experimental uv feature, so caveat emptor.
