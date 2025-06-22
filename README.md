@@ -83,8 +83,8 @@ To make full use of all the GPUs on a system, it is recommended that you only us
 | ---- | ----------- | ----- | ------------- | --------------------- | ------------ |
 | `rtx_2080` | 11 | 4 | 4 | 22 | 2 |
 | `rtx_3090` | 24 | 8 | 1  | 62 | 2 |
-| `A100` | 40 | 2 | 4 | 124 | 16 |
-| `A100` | 80 | 2 | 4 | 124 | 16 |
+| `A100` | 40 | 4 | 2 | 124 | 16 |
+| `A100` | 80 | 4 | 2 | 124 | 16 |
 
 ## Assessing cluster resource usage:
 
