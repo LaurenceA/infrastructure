@@ -143,14 +143,14 @@ The time limits for various queues are:
 ## Seeing your queued jobs
 You can use `sacct` to get an overview of all jobs you have run / queued today, including which are queued, running, completed, or failed.
 
-You can also use `squeue -u <username>`, but it won't show you completed / failed jobs.
+You can also use `squeue --me`, but it won't show you completed / failed jobs.
 
 ## Deleting all your jobs
 Use `lsub` above, then you can just Ctrl-C your unwanted jobs.
 
 Otherwise:
 ```
-scancel -u ei19760
+scancel --me
 ```
 
 ## Transfering data
@@ -289,4 +289,29 @@ export PIP_REQUIRE_VIRTUALENV=1
 [Isambard AI Docs](https://docs.isambard.ac.uk)
 
 [Isambard AI Specs](https://docs.isambard.ac.uk/specs/) (Basically, they are 4 * H100 nodes, but with 96 rather than 80 GB of VRAM, and with an absurdly huge number of CPUs (288).
+
+Singularity containers work pretty well out of the box on Isambard. Here are some [rough notes](https://gist.github.com/lippirk/47256bc7cba7228826b1ca4ab088f46b) on a workflow for getting distributed training working on Isambard using Singularity.
+
+Alternatively, you can take advantage of uv's ability to automatically select the appropriate PyTorch index by inspecting the system configuration.
+Once [you have installed uv](https://docs.astral.sh/uv/#installation), [enable experimental features](https://docs.astral.sh/uv/reference/settings/#preview) by adding `preview = true` to pyproject.toml under `[tool.uv]`.
+Then, you can [automatically select the best index](https://docs.astral.sh/uv/guides/integration/pytorch/#the-uv-pip-interface) compatible with the CUDA driver version in your environment like so:
+```sh
+$ UV_TORCH_BACKEND=auto uv pip install torch
+```
+At the time of writing, that installs torch 2.6.0+cu126 on Isambard-AI.
+But it's an experimental uv feature, so caveat emptor.
+
+## Isambard AI / Dawn Specs:
+
+### Isambard AI
+
+Isambard-AI phase 1 has 40 compute nodes, each of which contains 4 Nvidia Grace Hopper (GH200) superchips. Each node has 288 Grace CPU cores and 4 H100 GPUs. There is 512 GB of CPU memory per node, and 384 GB of High Bandwidth (GPU) memory. The nodes are connected using a Slingshot high performance network interconnect (4 200 Gbps injection points per node).
+
+From summer 2025, users will also be able to access Isambard-AI phase 2 through the early access call while the system is being tested, which has an additional 5,280 Nvidia Grace Hopper (GH200) superchips.
+Technical details of Dawn
+
+### Dawn
+
+Dawn consists of 256 Dell XE9640 server nodes, each server has 4 Intel Data Centre Max 1550 GPUs (each GPU has 128 GB HBM RAM configured in a 4-way SMP mode with XE-LINK). In total there are 1024 Intel GPUs.  Each server has 2 Gen 5 XEONs, and 1TB RAM and 4 HDR200 Infiniband links connected to a fully non-blocking fat tree. There is 14TB of local NVMe storage on each server. Dawn also has 2.8PB of NVMe flash storage. This consists of 18 quad-connected HDR infiniband servers providing 1.8 TB/s of network bandwidth to 432 NVMe drives designed to match the network performance. This High Performance storage layer will be tightly integrated with the scheduling software to support complex pipelines and AI workloads. Dawn has also access to 5PB of HPC Lustre storage on spinning disks. During the pilot phase 100 nodes will be available to users whilst development and performance work continues on the rest of the cluster.
+
 
