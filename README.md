@@ -13,24 +13,11 @@ cp ~/infrastructure/dotfiles/bashrc ~/.bashrc
 ```
 and log out then log back in. This does a few things.
 
-First, it provides the job submission helper scripts described below.
+First, it provides scripts to help submitting jobs (described below).
 
 Second, we have two places to keep files $HOME and $WORK. $HOME is backed up, but is super constrained (about 20 GB). $WORK is much bigger but not backed up. So, this `.bashrc` sets all caches, including for Hugging Face and Pip, to live in $WORK.
 
-Third, it is super-easy to make a gigantic mess when installing stuff in Python.  To fix that, this .bashrc actually bans you from installing packages globally.  So you can only install packages in a venv.  The usual approaches is to navigate to your project directory and use:
-```
-cd path_to_project/project_name
-python -m venv venv
-source venv/bin/activate
-```
-Then you can pip install as usual.  Though I'd recommend writing a `requirements.txt` file and using `pip install -r requirements.txt`.
-However, these venvs can be huge in machine learning projects, so we can again end up running out of space in $HOME. So this .bashrc provides commands to make it easy to install venvs to work directory.  Specifically instead of the above, you can use:
-```
-cd path_to_project/project_name
-venv_init
-venv_activate
-```
-Using these commands, a venv is created at `$WORK/venvs/project_name`.  Note that the venv name is based on the directory name.  So it does raise the risk of clashes if you have two projects in different places.  Or it means that it won't find the venv if you move the project to a directory with a different name.
+Third, it is super-easy to make a gigantic mess when installing stuff in Python.  To fix that, this .bashrc actually bans you from installing packages globally.  You can only install packages in a venv.  The next problem is that naturally, you'd usually install packages in the home directory.  But that can run out of space super-fast.  Therefore, this bashrc provides a `venv` command (described below). 
 
 Fourth, the .bashrc provides a default queue and hpc_project_code for the job submission scripts below.
 
@@ -111,6 +98,24 @@ CfgTRES=cpu=64,mem=490000M,billing=64,gres/gpu=3
 AllocTRES=cpu=34,mem=176G,gres/gpu=3
 ```
 lines.
+
+## Putting venvs on the work directory.
+
+Python venvs can end up super-large, so you don't really want them on your home directory.
+
+The usual approach is to start a venv in the `venv` directory,
+```
+python -m venv venv
+source venv/bin/activate
+```
+Then you can use pip install as usual.
+However, these venvs can be huge in machine learning projects, so we can again end up running out of space in $HOME. So this .bashrc provides a `venv` tool to make it easy to install venvs to work directory (specifically `$VENVS=$WORK/venvs`.  You can use:
+```
+venv init venv_name
+venv activate venv_name
+```
+Using these commands, a venv is created at `$WORK/venvs/venv_name`.
+
 
 # Notes
 
