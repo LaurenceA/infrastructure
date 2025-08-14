@@ -102,3 +102,13 @@ The options you pass will be given to lscript and lcmd so you can use them to se
 The downside is that it will run the Jupyter server in your home directory and you will still need to cancel the job when your are finished.
 
 The script also assume you have create an alias in your local SSH config which points bp at Blue Pebble login node with the correct username.
+
+## SSH forwarding
+Once you've got a Jupyter server running on a BluePebble compute node, it can be convenient to set up SSH forwarding to that server.
+This allows you to have the Jupyter notebook file locally on your laptop but execute it remotely on the GPU, which I find really convenient.
+
+Assuming the server is running at bp1-gpu039 on port :8888, and that your local machine has the BluePebble login node saved as `bp` in your SSH config, you can set up SSH forwarding with
+```
+ssh -L 8888:localhost:8888 -o ProxyJump=bp bp1-gpu039
+```
+Then simply open a Jupyter notebook on your local machine, click the kernel selector in the top right corner, then "Select another kernel", "Existing Jupyter server" and type in `http:127.0.0.1:8000`
